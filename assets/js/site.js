@@ -127,7 +127,7 @@
     placeHero = function () {
       var p = coverPt(hm, 1280, 720, tx, ty, irImg); tgt = p;
       hm.style.setProperty('--tx', p.x + 'px'); hm.style.setProperty('--ty', p.y + 'px');
-      if (lock) { lock.style.left = p.x + 'px'; lock.style.top = p.y + 'px'; lock.style.setProperty('--ls', p.s); }
+      if (lock) { var hb = lock.parentNode.getBoundingClientRect(), mb = hm.getBoundingClientRect(); lock.style.left = (p.x - (hb.left - mb.left)) + 'px'; lock.style.top = (p.y - (hb.top - mb.top)) + 'px'; lock.style.setProperty('--ls', p.s); }
     };
     placeHero(); W.addEventListener('resize', placeHero);
     if (!motion) { if (lock) lock.classList.add('on'); if (scanTxt) scanTxt.textContent = '1 SIGNATURE'; }
@@ -270,8 +270,9 @@
   if (FINE) {
     H.classList.add('has-cursor');
     var cur = $('.cursor'), ct = $('.cursor-t', cur);
-    var cx = gsap.quickTo(cur, 'x', { duration: 0.3, ease: 'power3' }), cy = gsap.quickTo(cur, 'y', { duration: 0.3, ease: 'power3' });
-    W.addEventListener('pointermove', function (e) { cx(e.clientX); cy(e.clientY); }, { passive: true });
+    var cx = gsap.quickTo(cur, 'x', { duration: 0.3, ease: 'power3' }), cy = gsap.quickTo(cur, 'y', { duration: 0.3, ease: 'power3' }), seen = false;
+    cur.classList.add('is-hidden');
+    W.addEventListener('pointermove', function (e) { if (!seen) { seen = true; gsap.set(cur, { x: e.clientX, y: e.clientY }); cur.classList.remove('is-hidden'); } cx(e.clientX); cy(e.clientY); }, { passive: true });
     d.addEventListener('pointerover', function (e) {
       var t = e.target.closest ? e.target.closest('[data-cursor]') : null;
       if (t) { ct.textContent = t.dataset.cursor; cur.classList.add('is-label'); } else cur.classList.remove('is-label');

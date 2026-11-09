@@ -770,3 +770,4 @@ input[type=datetime-local].inp,input[type=date].inp{color-scheme:dark}
   .pt{display:none}
 }
 @media(max-width:440px){.menu-btn{padding:0 4px}.mb-t{display:none}.logo-t b{letter-spacing:.2em;font-size:12px}}
+@media(max-width:700px){.lk-t{left:calc(-105px * var(--ls,1));top:calc(68px * var(--ls,1))}}
