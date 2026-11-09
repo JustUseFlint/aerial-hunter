@@ -1,0 +1,10 @@
+import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
+import { services } from './data.mjs';
+import { home, servicesIndex, servicePage, howItWorks, serviceArea, about, faq, contact, notFound } from './pages.mjs';
+const OUT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const w = (p, html) => { const f = path.join(OUT, p); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, html); };
+w('index.html', home()); w('services/index.html', servicesIndex());
+services.forEach((s, i) => w(`services/${s.slug}/index.html`, servicePage(s, i)));
+w('how-it-works/index.html', howItWorks()); w('service-area/index.html', serviceArea());
+w('about/index.html', about()); w('faq/index.html', faq()); w('contact/index.html', contact()); w('404.html', notFound());
+console.log('built', 8 + services.length, 'pages');
