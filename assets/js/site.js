@@ -321,8 +321,8 @@
   // chapters with sticky media (desktop)
   var mm = gsap.matchMedia();
   $$('[data-chapters]').forEach(function (sec) {
-    var chs = $$('.cc-ch', sec), plates = $$('.cc-plate', sec), num = $('[data-cc-i]', sec);
-    var set = function (k) { chs.forEach(function (c, j) { c.classList.toggle('on', j === k); }); plates.forEach(function (p, j) { p.classList.toggle('on', j <= k); }); if (num) num.textContent = '0' + (k + 1); };
+    var chs = $$('.cc-ch', sec), plates = $$('.cc-plate', sec);
+    var set = function (k) { chs.forEach(function (c, j) { c.classList.toggle('on', j === k); }); plates.forEach(function (p, j) { p.classList.toggle('on', j <= k); }); };
     mm.add('(min-width: 900px)', function () {
       set(0);
       chs.forEach(function (c, k) { ScrollTrigger.create({ trigger: c, start: 'top 55%', end: 'bottom 55%', onToggle: function (s) { if (s.isActive) set(k); } }); });

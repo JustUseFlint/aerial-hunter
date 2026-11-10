@@ -2,7 +2,6 @@ import { esc, img, pic, arrow, phoneIco, smsIco, fbIco, callBtn, page, PHONE, TE
 import { services, counties, faqs, faqCats } from './data.mjs';
 import { mapSVG } from './map.mjs';
 
-const pad = n => String(n).padStart(2, '0');
 const hudCorners = `<span class="hc hc-tl"></span><span class="hc hc-tr"></span><span class="hc hc-bl"></span><span class="hc hc-br"></span>`;
 
 /* ---------- reusable blocks ---------- */
@@ -57,7 +56,7 @@ function stackCards(root) {
     ${services.map((s, i) => `<article class="stack-card sc-${i}" style="top:calc(var(--hdr) + ${12 + i * 16}px)">
       <a href="${root}services/${s.slug}/" class="sc-in" data-cursor="Open">
         <div class="sc-txt">
-          <span class="sc-n mono">${s.n} / 03 · ${s.kicker}</span>
+          <span class="sc-n mono">${s.kicker}</span>
           <h3 class="sc-h">${s.name}</h3>
           <p class="sc-l">${s.lede}</p>
           <span class="sc-go mono">See how a search works ${arrow}</span>
@@ -98,7 +97,7 @@ function mapBlock(root, small = false) {
         <p class="mi-s mono" data-mi-s>County seat · Rockville</p>
         <p class="mi-p" data-mi-p>${counties[0].note}</p>
       </div>
-      <ul class="cty-list">${counties.map((c, i) => `<li><button type="button" class="cty-b${c.home ? ' on' : ''}" data-c="${c.id}" data-name="${c.name}" data-seat="${c.seat}" data-note="${esc(c.note)}" data-home="${c.home ? 1 : 0}"><span class="mono">${pad(i + 1)}</span><span>${c.name}</span><span class="mono cty-r">${c.home ? 'Home' : c.seat}</span></button></li>`).join('')}</ul>
+      <ul class="cty-list">${counties.map((c, i) => `<li><button type="button" class="cty-b${c.home ? ' on' : ''}" data-c="${c.id}" data-name="${c.name}" data-seat="${c.seat}" data-note="${esc(c.note)}" data-home="${c.home ? 1 : 0}"><span>${c.name}</span><span class="mono cty-r">${c.home ? 'Home' : c.seat}</span></button></li>`).join('')}</ul>
     </div>
   </div>`;
 }
@@ -187,7 +186,7 @@ export function servicesIndex() {
   const root = '../';
   const body = `
 <section class="phero wrap">
-  <p class="eyebrow" data-fade>Services <sup class="mono">03</sup></p>
+  <p class="eyebrow" data-fade>Services</p>
   <h1 class="h-xxl roller-h" data-split="hero">We find</h1>
   <div class="roller h-xxl" data-roller aria-hidden="true"><div class="roller-in"><span>deer.</span><span>dogs.</span><span>cats.</span><span>cattle.</span><span>strays.</span><span>deer.</span></div></div>
   <p class="lead phero-lede" data-fade>Three services, one approach: a thermal drone, a careful search pattern, and someone on the phone who tells you straight what the odds are.</p>
@@ -198,7 +197,7 @@ export function servicesIndex() {
     <a href="${s.slug}/" class="svx-a" data-cursor="Open">
       <span class="svx-m">${img(root, s.hero, s.alt)}${hudCorners}</span>
       <span class="svx-t">
-        <span class="mono svx-n">${s.n} / 03</span>
+        <span class="mono svx-n">${s.kicker}</span>
         <span class="svx-h">${s.name}</span>
         <span class="svx-l">${s.lede}</span>
         <span class="svx-meta mono">${s.meta.slice(0, 3).map(m => `<span><i>${m[0]}</i>${m[1]}</span>`).join('')}</span>
@@ -220,7 +219,6 @@ ${process(root)}
     <li class="rate" data-reveal>
       <div class="rate-top">
         <div>
-          <p class="rate-n mono">01 / 03</p>
           <h3 class="rate-h"><a href="deer-recovery/">Deer Recovery</a></h3>
         </div>
         <p class="rate-fig"><b>$250</b><span>up to 2 hours</span></p>
@@ -234,7 +232,6 @@ ${process(root)}
     <li class="rate" data-reveal>
       <div class="rate-top">
         <div>
-          <p class="rate-n mono">02 / 03</p>
           <h3 class="rate-h"><a href="lost-pet-recovery/">Lost Pet Recovery</a></h3>
         </div>
         <p class="rate-fig"><b>$150</b><span>per hour</span></p>
@@ -246,7 +243,6 @@ ${process(root)}
     <li class="rate" data-reveal>
       <div class="rate-top">
         <div>
-          <p class="rate-n mono">03 / 03</p>
           <h3 class="rate-h"><a href="herd-land-surveying/">Herd &amp; Land Surveying</a></h3>
         </div>
         <p class="rate-fig is-call"><b>Call for more information</b></p>
@@ -268,7 +264,7 @@ function process(root) {
     <p class="eyebrow">How every search runs</p>
     <h2 class="h-l" data-split>Call. Plan. Fly. Find.</h2>
     <div class="proc-line" aria-hidden="true"><span data-proc-line></span></div>
-    <ol class="proc">${steps.map((s, i) => `<li class="proc-s"><span class="proc-dot"><i></i></span><span class="mono">${pad(i + 1)}</span><h3>${s[0]}</h3><p>${s[1]}</p></li>`).join('')}</ol>
+    <ol class="proc">${steps.map((s, i) => `<li class="proc-s"><span class="proc-dot"><i></i></span><h3>${s[0]}</h3><p>${s[1]}</p></li>`).join('')}</ol>
   </div>
 </section>`;
 }
@@ -308,7 +304,7 @@ export function servicePage(s, i) {
   <div class="csh-media" data-hero-media>${img(root, s.hero, s.alt, '', 'loading="eager"')}</div>
   <div class="csh-hud" aria-hidden="true">${hudCorners}</div>
   <div class="csh-over wrap">
-    <p class="cs-eb mono" data-fade><span>Service ${s.n} / 03</span><span>${s.kicker}</span></p>
+    <p class="cs-eb mono" data-fade><span>${s.kicker}</span></p>
     <h1 class="cs-title" data-split="hero">${s.title}</h1>
     <div class="csh-row">
       <p class="lead" data-fade>${s.lede}</p>
@@ -329,7 +325,6 @@ export function servicePage(s, i) {
   <div class="cc-list">
     <p class="eyebrow cs-k" id="ch-h">How a search works</p>
     ${s.chapters.map((c, k) => `<article class="cc-ch">
-      <span class="cc-n mono">${pad(k + 1)} / ${pad(s.chapters.length)}</span>
       <h2 class="cs-h3">${c[0]}</h2>
       <p>${c[1]}</p>
       <div class="cc-mob">${plate(c[2])}</div>
@@ -337,13 +332,12 @@ export function servicePage(s, i) {
   </div>
   <div class="cc-media" aria-hidden="true">
     ${s.chapters.map((c, k) => `<div class="cc-plate${k === 0 ? ' on' : ''}">${plate(c[2])}</div>`).join('')}
-    <span class="cc-count mono"><span data-cc-i>01</span> / ${pad(s.chapters.length)}</span>
   </div>
 </section>
 
 <section class="cs-tl" data-hscroll aria-labelledby="tl-h">
   <div class="tl-head wrap"><p class="eyebrow cs-k">Timeline</p><h2 id="tl-h" class="cs-h2" data-split>${s.tlTitle}</h2></div>
-  <ol class="tl-track">${s.tl.map(t => `<li class="tl-step"><span class="tl-dot"></span><span class="tl-w mono">${t[0]}</span><h3 class="tl-t">${t[1]}</h3><p>${t[2]}</p></li>`).join('')}</ol>
+  <ol class="tl-track">${s.tl.map(t => `<li class="tl-step"><span class="tl-dot"></span><h3 class="tl-t">${t[1]}</h3><p>${t[2]}</p></li>`).join('')}</ol>
   <div class="tl-bar" aria-hidden="true"><span data-tl-progress></span></div>
 </section>
 
@@ -379,7 +373,7 @@ ${s.deliver ? `<section class="caps-cloud wrap"><p class="eyebrow">What you can 
 <section class="cs-next">
   <a class="cn-a" href="${root}services/${next.slug}/" data-cursor="Next">
     <span class="cn-media">${img(root, next.hero, '')}</span>
-    <span class="cn-txt wrap"><span class="mono">Next service · ${next.n} / 03</span><span class="cn-t">${next.name}</span><span class="cn-s">${next.kicker} ${arrow}</span></span>
+    <span class="cn-txt wrap"><span class="mono">Next service</span><span class="cn-t">${next.name}</span><span class="cn-s">${next.kicker} ${arrow}</span></span>
   </a>
 </section>`;
   return page({ root, path: 'services/', title: s.name, desc: `${s.name} by thermal drone in Parke County, Indiana and the surrounding counties. ${s.lede}`, body, cls: `p-case ${s.cls}` });
@@ -522,7 +516,7 @@ export function about() {
 
 <section class="principles wrap" aria-labelledby="pr-h">
   <div class="sec-head"><h2 id="pr-h" class="h-l" data-split>How we work</h2></div>
-  <ol class="pr">${[['Straight answers', 'If conditions or cover make a find unlikely, you’ll hear it on the phone, before anyone drives out.'], ['Landowners first', 'We fly and recover only where we have permission, and we help you sort it out with neighbors.'], ['Quick to respond', 'Lost animals don’t wait. Call as soon as you know, and we’ll tell you how quickly we can get there.'], ['Fair prices', 'Rates are listed on the Services page. We’ll confirm the cost before we drive out.']].map((p, k) => `<li data-reveal><span class="mono">${pad(k + 1)}</span><h3>${p[0]}</h3><p>${p[1]}</p></li>`).join('')}</ol>
+  <ol class="pr">${[['Straight answers', 'If conditions or cover make a find unlikely, you’ll hear it on the phone, before anyone drives out.'], ['Landowners first', 'We fly and recover only where we have permission, and we help you sort it out with neighbors.'], ['Quick to respond', 'Lost animals don’t wait. Call as soon as you know, and we’ll tell you how quickly we can get there.'], ['Fair prices', 'Rates are listed on the Services page. We’ll confirm the cost before we drive out.']].map((p, k) => `<li data-reveal><h3>${p[0]}</h3><p>${p[1]}</p></li>`).join('')}</ol>
 </section>
 
 <section class="fbband wrap" aria-labelledby="fb-h">
@@ -545,7 +539,7 @@ export function faq() {
 </section>
 <section class="faq-p wrap">
   <div class="chips" data-faq-filter role="group" aria-label="Filter questions">${faqCats.map(([k, t], i) => `<button class="chip${i ? '' : ' on'}" type="button" data-f="${k}" aria-pressed="${i ? 'false' : 'true'}">${t}<sup>${k === 'all' ? faqs.length : faqs.filter(f => f[0] === k).length}</sup></button>`).join('')}</div>
-  <div class="faq-list">${faqs.map((f, k) => `<details class="acc" data-cat="${f[0]}"><summary><span class="acc-n mono">${pad(k + 1)}</span><span class="acc-t">${f[1]}</span><span class="acc-x" aria-hidden="true"></span></summary><div class="acc-b"><div class="acc-in"><p>${f[2]}</p>${f[3] ? `<a class="link-arrow" href="${f[3][1]}" target="_blank" rel="noopener">${f[3][0]} ↗</a>` : ''}</div></div></details>`).join('')}</div>
+  <div class="faq-list">${faqs.map((f, k) => `<details class="acc" data-cat="${f[0]}"><summary><span class="acc-t">${f[1]}</span><span class="acc-x" aria-hidden="true"></span></summary><div class="acc-b"><div class="acc-in"><p>${f[2]}</p>${f[3] ? `<a class="link-arrow" href="${f[3][1]}" target="_blank" rel="noopener">${f[3][0]} ↗</a>` : ''}</div></div></details>`).join('')}</div>
 </section>`;
   return page({ root, path: 'faq/', title: 'FAQ', desc: 'Answers about thermal drone deer recovery, lost pet searches, Indiana drone rules, weather limits and pricing.', body, cls: 'p-faq' });
 }

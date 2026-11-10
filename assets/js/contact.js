@@ -105,7 +105,7 @@
     var head = function (k, h, sub) { return '<p class="eyebrow ct-k">Step ' + (step + 1) + ' of ' + FLOW.length + ' · ' + k + '</p><h2 class="ct-q">' + h + '</h2>' + (sub ? '<p class="ct-sub">' + sub + '</p>' : ''); };
     if (cur.id === 'service') {
       html = head('What happened', 'What are we looking for?', 'Your answer shapes the next questions, so we only ask what matters.') +
-        '<div class="fld" data-k="service"><div class="opts" role="radiogroup" aria-label="Type of request">' + SERVICES.map(function (s, i) { return '<label class="opt"><input type="radio" name="service" value="' + s.id + '"' + (state.service === s.id ? ' checked' : '') + '><span class="mono">0' + (i + 1) + '</span><span class="opt-t">' + s.t + '</span><span class="opt-d">' + s.d + '</span><span class="opt-c" aria-hidden="true"></span></label>'; }).join('') + '</div><span class="fld-err" role="alert">Please choose one to continue.</span></div>';
+        '<div class="fld" data-k="service"><div class="opts" role="radiogroup" aria-label="Type of request">' + SERVICES.map(function (s) { return '<label class="opt"><input type="radio" name="service" value="' + s.id + '"' + (state.service === s.id ? ' checked' : '') + '><span class="opt-t">' + s.t + '</span><span class="opt-d">' + s.d + '</span><span class="opt-c" aria-hidden="true"></span></label>'; }).join('') + '</div><span class="fld-err" role="alert">Please choose one to continue.</span></div>';
     } else if (cur.id === 'details') {
       var q = Q[state.service]; html = head(svc().t, q.h, q.sub) + q.f.map(field).join('');
     } else if (cur.id === 'you') {
@@ -120,7 +120,7 @@
       back.hidden = step === 0;
       next.querySelector('span').textContent = cur.id === 'review' ? 'Prepare my text' : 'Continue';
       prog.style.transform = 'scaleX(' + ((step + 1) / (FLOW.length + 1)) + ')';
-      stepsEl.innerHTML = FLOW.map(function (s, i) { return '<li class="' + (i === step ? 'on' : i < step ? 'done' : '') + '"><span>0' + (i + 1) + ' ' + s.label + '</span><span>' + (i < step ? 'Done' : i === step ? '●' : '') + '</span></li>'; }).join('');
+      stepsEl.innerHTML = FLOW.map(function (s, i) { return '<li class="' + (i === step ? 'on' : i < step ? 'done' : '') + '"><span>' + s.label + '</span><span>' + (i < step ? 'Done' : i === step ? '●' : '') + '</span></li>'; }).join('');
       stage.querySelectorAll('[data-edit]').forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.edit); }); });
       stage.querySelectorAll('input[name=service]').forEach(function (r) { r.addEventListener('change', function () { var old = state.service; state.service = r.value; FLOW = flowFor(); if (old !== r.value) setTimeout(function () { go(1); }, 260); }); });
       stage.querySelectorAll('[data-now]').forEach(function (b) { b.addEventListener('click', function () { var i = stage.querySelector('#f-' + b.dataset.now); i.value = nowLocal(); i.closest('.fld').classList.remove('err'); }); });
