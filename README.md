@@ -1,6 +1,6 @@
 # Aerial Hunter — website
 
-Static site for **Aerial Hunter**, a thermal drone search and recovery service based in Parke County, Indiana
+Static site for **Aerial Hunter**, a thermal drone search and recovery service based in Rockville, Indiana, serving the whole state
 (deer recovery, lost pet recovery, herd counts and land surveying). Phone: 765-592-5970.
 Facebook: https://www.facebook.com/people/Aerial-Hunter/61583336984487/
 
@@ -24,10 +24,10 @@ AI-generated atmosphere images (not real Aerial Hunter jobs; replace with real p
 - `thermal-deer.webp`, `night-deer.webp` (derived), `thermal-dog.webp`, `night-dog.webp` (derived), `thermal-herd.webp`
 - `dusk-drone.webp`, `cattle-aerial.webp`, `woods-dusk.webp`, `covered-bridge.webp`, `land-ortho.webp`, `pilot-dusk.webp`
 
-The county map is a stylized SVG drawn from approximate county outlines; it is not to scale.
+The service-area map is a stylized SVG outline of Indiana; it is not to scale. A dashed ring marks 50 miles from Rockville, after which travel is $1 per mile.
 
 ## Needs from the owner
-Email address, owner name and photo, real job photos, reviews (with permission), pricing, hours, and how far outside the seven counties you travel.
+Email address, owner name and photo, real job photos, reviews (with permission), hours.
 
 ## Local
     python3 -m http.server 8765   # then open http://localhost:8765/

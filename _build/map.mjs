@@ -1,38 +1,94 @@
-import { counties } from './data.mjs';
-const LON0 = -87.58, LAT0 = 40.25, K = 560;
-const P = ([lon, lat]) => [((lon - LON0) * K).toFixed(1), ((LAT0 - lat) * K * 1.3).toFixed(1)];
-const W = ((-86.64 - LON0) * K).toFixed(0), H = ((LAT0 - 39.30) * K * 1.3).toFixed(0);
-const river = [[-87.47, 40.25], [-87.44, 40.15], [-87.40, 40.03], [-87.385, 39.95], [-87.395, 39.88], [-87.38, 39.80], [-87.39, 39.72], [-87.383, 39.66], [-87.41, 39.61], [-87.44, 39.52], [-87.43, 39.42], [-87.47, 39.30]];
-const R = (a, b) => river.filter(([, la]) => la <= a && la >= b);
-const shapes = {
-  vermillion: [[-87.53, 40.25], ...R(40.25, 39.61), [-87.53, 39.61]],
-  fountain: [...R(40.25, 39.95), [-87.09, 39.95], [-87.09, 40.25]],
-  parke: [...R(39.95, 39.61), [-87.01, 39.61], [-87.01, 39.95]],
-  montgomery: [[-87.09, 40.25], [-86.69, 40.25], [-86.69, 39.86], [-87.01, 39.86], [-87.01, 39.95], [-87.09, 39.95]],
-  putnam: [[-87.01, 39.86], [-86.69, 39.86], [-86.69, 39.47], [-87.01, 39.47]],
-  clay: [[-87.24, 39.61], [-87.01, 39.61], [-87.01, 39.47], [-86.94, 39.47], [-86.94, 39.30], [-87.24, 39.30]],
-  vigo: [[-87.53, 39.61], [-87.41, 39.61], [-87.24, 39.61], [-87.24, 39.30], [-87.53, 39.30]]
-};
-const label = { vermillion: [-87.475, 39.97], fountain: [-87.24, 40.11], parke: [-87.2, 39.79], montgomery: [-86.86, 40.07], putnam: [-86.85, 39.67], clay: [-87.12, 39.40], vigo: [-87.37, 39.40] };
-const towns = [['Rockville', -87.229, 39.762, 1], ['Montezuma', -87.37, 39.793], ['Marshall', -87.188, 39.848], ['Rosedale', -87.283, 39.623], ['Mecca', -87.33, 39.727], ['Bridgeton', -87.178, 39.649], ['Bloomingdale', -87.25, 39.833],
-  ['Newport', -87.43, 39.884], ['Covington', -87.395, 40.14], ['Crawfordsville', -86.874, 40.041], ['Greencastle', -86.865, 39.645], ['Brazil', -87.125, 39.524], ['Terre Haute', -87.413, 39.467]];
-const path = pts => 'M' + pts.map(P).map(p => p.join(' ')).join('L') + 'Z';
-const line = pts => 'M' + pts.map(P).map(p => p.join(' ')).join('L');
-const sugar = [[-86.70, 40.08], [-86.86, 40.03], [-86.98, 39.99], [-87.10, 39.93], [-87.20, 39.885], [-87.29, 39.865], [-87.38, 39.84]];
-const raccoon = [[-86.80, 39.84], [-86.95, 39.79], [-87.07, 39.75], [-87.17, 39.71], [-87.28, 39.67], [-87.383, 39.66]];
+/* Stylized outline of Indiana for the service-area map. Not a survey and not to scale. */
+const W = 440, H = 700, PAD = 36;
+const LON = [-88.22, -84.62];
+const LAT = [41.86, 37.64];
+
+function P(lon, lat) {
+  const x = PAD + (lon - LON[0]) / (LON[1] - LON[0]) * (W - PAD * 2);
+  const y = PAD + (LAT[0] - lat) / (LAT[0] - LAT[1]) * (H - PAD * 2);
+  return [x, y];
+}
+function d(pts, close = true) {
+  return pts.map((p, i) => `${i ? 'L' : 'M'}${P(...p).map(n => n.toFixed(1)).join(',')}`).join('') + (close ? 'Z' : '');
+}
+
+/* Clockwise from the Illinois–Lake Michigan corner. */
+const OUTLINE = [
+  [-87.528, 41.708],
+  [-87.42, 41.755],
+  [-87.20, 41.760],
+  [-86.90, 41.761],
+  [-86.50, 41.761],
+  [-86.00, 41.761],
+  [-85.50, 41.761],
+  [-85.00, 41.761],
+  [-84.806, 41.761], // IN–MI–OH
+  [-84.806, 41.20],
+  [-84.806, 40.70],
+  [-84.806, 40.20],
+  [-84.806, 39.70],
+  [-84.806, 39.20],
+  [-84.809, 38.80],
+  [-84.812, 38.45],
+  // Ohio River, east to southwest
+  [-84.82, 38.27],
+  [-84.90, 38.14],
+  [-85.13, 38.28],
+  [-85.40, 38.18],
+  [-85.62, 38.04],
+  [-85.78, 38.02],
+  [-86.00, 38.03],
+  [-86.25, 37.96],
+  [-86.50, 37.90],
+  [-86.78, 37.93],
+  [-87.00, 37.84],
+  [-87.20, 37.80],
+  [-87.45, 37.86],
+  [-87.65, 37.78],
+  [-87.90, 37.84],
+  [-88.10, 37.78], // Wabash mouth
+  // Wabash / Illinois line north
+  [-88.04, 38.00],
+  [-87.90, 38.22],
+  [-87.78, 38.45],
+  [-87.65, 38.70],
+  [-87.58, 38.95],
+  [-87.532, 39.14],
+  [-87.526, 39.50],
+  [-87.526, 39.90],
+  [-87.526, 40.30],
+  [-87.526, 40.75],
+  [-87.526, 41.20],
+  [-87.528, 41.55]
+];
+
+const ROCKVILLE = [-87.229, 39.762];
+
+function milesRadius(lon, lat, miles) {
+  const dLat = miles / 69.0;
+  const dLon = miles / (69.0 * Math.cos(lat * Math.PI / 180));
+  const [cx, cy] = P(lon, lat);
+  const [ex] = P(lon + dLon, lat);
+  const [, ny] = P(lon, lat + dLat);
+  return { cx, cy, rx: Math.abs(ex - cx), ry: Math.abs(cy - ny) };
+}
 
 export function mapSVG({ small = false } = {}) {
-  const [rx, ry] = P([-87.229, 39.762]);
-  const grat = [];
-  for (let lo = -87.5; lo <= -86.7; lo += 0.1) { const [x] = P([lo, 0]); grat.push(`<path d="M${x} 0V${H}"/>`); }
-  for (let la = 39.3; la <= 40.25; la += 0.1) { const [, y] = P([0, la]); grat.push(`<path d="M0 ${y}H${W}"/>`); }
-  return `<svg class="map${small ? ' map-s' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Stylized map of Parke County, Indiana and the six surrounding counties: Vermillion, Fountain, Montgomery, Putnam, Clay and Vigo">
-  <defs><radialGradient id="mg${small ? 's' : ''}"><stop offset="0" stop-color="#5CE1E6" stop-opacity=".22"/><stop offset="1" stop-color="#5CE1E6" stop-opacity="0"/></radialGradient></defs>
-  <g class="m-grat" aria-hidden="true">${grat.join('')}</g>
-  <g class="m-cty">${counties.map(c => `<g class="cty${c.home ? ' is-home' : ''}" data-c="${c.id}"${small ? '' : ` tabindex="0" role="button" aria-label="${c.name} County"`}><path class="cty-p" d="${path(shapes[c.id])}" pathLength="1"/><text x="${P(label[c.id])[0]}" y="${P(label[c.id])[1]}" class="cty-l">${c.name.toUpperCase()}</text></g>`).join('')}</g>
-  <g class="m-water" aria-hidden="true"><path class="riv" d="${line(river)}"/><path class="crk" d="${line(sugar)}"/><path class="crk" d="${line(raccoon)}"/></g>
-  <g class="m-radar" aria-hidden="true"><circle cx="${rx}" cy="${ry}" r="150" fill="url(#mg${small ? 's' : ''})"/><circle class="rr rr1" cx="${rx}" cy="${ry}" r="40"/><circle class="rr rr2" cx="${rx}" cy="${ry}" r="40"/><circle class="rr rr3" cx="${rx}" cy="${ry}" r="40"/></g>
-  <g class="m-towns" aria-hidden="true">${towns.map(([n, lo, la, big]) => { const [x, y] = P([lo, la]); return `<g class="twn${big ? ' twn-b' : ''}"><circle cx="${x}" cy="${y}" r="${big ? 4.5 : 2.6}"/><text x="${+x + 7}" y="${+y + 3.5}">${n}</text></g>`; }).join('')}</g>
-  ${small ? '' : `<g class="m-legend mono" aria-hidden="true"><text x="12" y="${H - 34}">WABASH RIVER</text><path class="riv" d="M12 ${H - 24}h40"/><text x="12" y="${H - 8}">NOT TO SCALE · STYLIZED</text></g>`}
+  const [rx, ry] = P(...ROCKVILLE);
+  const ring = milesRadius(ROCKVILLE[0], ROCKVILLE[1], 50);
+  const label = small
+    ? 'Stylized map of Indiana, with a marker at Rockville, the home base'
+    : 'Stylized map of Indiana. Aerial Hunter is based in Rockville and searches the whole state. A dashed ring marks 50 miles from Rockville, after which travel is $1 per mile.';
+  const namePt = P(-85.55, 40.95);
+  const ringTop = ring.cy - ring.ry - 12;
+  return `<svg class="map in-map${small ? ' map-s' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}">
+  <path class="in-p" d="${d(OUTLINE)}" pathLength="1"/>
+  ${small ? '' : `<ellipse class="in-ring" cx="${ring.cx.toFixed(1)}" cy="${ring.cy.toFixed(1)}" rx="${ring.rx.toFixed(1)}" ry="${ring.ry.toFixed(1)}" fill="none"/>
+  <text class="in-ring-l" x="${ring.cx.toFixed(1)}" y="${ringTop.toFixed(1)}">50 miles</text>`}
+  <g class="twn twn-b in-pin">
+    <circle cx="${rx.toFixed(1)}" cy="${ry.toFixed(1)}" r="${small ? 5 : 6}"/>
+    <text x="${(rx + 11).toFixed(1)}" y="${(ry + 4).toFixed(1)}">Rockville</text>
+  </g>
+  ${small ? '' : `<text class="in-name" x="${namePt[0].toFixed(1)}" y="${namePt[1].toFixed(1)}">INDIANA</text>`}
 </svg>`;
 }

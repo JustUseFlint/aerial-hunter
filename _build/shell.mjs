@@ -28,7 +28,7 @@ export function header(root, path) {
     <a class="hdr-logo" href="${root}" aria-label="Aerial Hunter home">${logo(root)}</a>
     <nav class="hdr-nav" aria-label="Primary">${NAV.map(([t, h]) => `<a href="${root}${h}"${cur(h)} class="ul">${t}</a>`).join('')}</nav>
     <div class="hdr-r">
-      <span class="hdr-status mono"><i></i>Parke Co., IN</span>
+      <span class="hdr-status mono"><i></i>Indiana</span>
       <a class="btn btn-sm hdr-cta" href="${TEL}" data-magnetic><span>${phoneIco}${PHONE}</span></a>
       <a class="hdr-callm" href="${TEL}" aria-label="Call ${PHONE}">${phoneIco}</a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn><span class="mb-t"><span>Menu</span><span>Close</span></span><span class="mb-i"><i></i><i></i></span></button>
@@ -53,7 +53,7 @@ export function footer(root, { cta = true } = {}) {
     <div class="cta-row">
       <a class="cta-phone" href="${TEL}" data-cursor="Call"><span class="mono">Tap to call</span><span class="cta-num">${PHONE.replace(/-/g, '<i>-</i>')}</span></a>
       <div class="cta-side">
-        <p>Deer recovery, lost pets, herd counts and land checks across Parke County and the surrounding counties. Rates are on the Services page; call or text to get started.</p>
+        <p>Deer recovery, lost pets, herd counts and land checks anywhere in Indiana. Rates are on the Services page; call or text to get started.</p>
         <div class="cta-btns"><a class="btn btn-ghost" href="${SMS}"><span>${smsIco}Text instead</span></a><a class="btn btn-ghost" href="${root}contact/"><span>Send details ${arrow}</span></a></div>
       </div>
     </div>
@@ -64,7 +64,7 @@ export function footer(root, { cta = true } = {}) {
     <div class="ftr-grid">
       <div class="ftr-col ftr-brand">
         <img src="${root}assets/img/logo-sm.png" alt="Aerial Hunters logo: Hunt. Search. Find." width="412" height="202" loading="lazy" class="ftr-logo">
-        <p class="ftr-copy">Thermal drone search and recovery from a certified Part 107 pilot, based in Parke County, Indiana.</p>
+        <p class="ftr-copy">Thermal drone search and recovery from a certified Part 107 pilot, based in Rockville, Indiana, serving the whole state.</p>
       </div>
       <div class="ftr-col">
         <p class="eyebrow">Services</p>
@@ -86,8 +86,8 @@ export function footer(root, { cta = true } = {}) {
   </div>
   <div class="ftr-wm" data-wm aria-hidden="true">${'HUNT.SEARCH.FIND.'.split('').map(c => `<span${c === '.' ? ' class="dot"' : ''}>${c}</span>`).join('')}</div>
   <div class="wrap ftr-base mono">
-    <span>© 2026 Aerial Hunter · Parke County, Indiana</span>
-    <span>Parke · Vermillion · Fountain · Montgomery · Putnam · Clay · Vigo</span>
+    <span>© 2026 Aerial Hunter · Indiana</span>
+    <span>Serving all of Indiana</span>
     <a href="#top" class="ul">Back to top ↑</a>
   </div>
 </footer>
@@ -99,7 +99,7 @@ export function footer(root, { cta = true } = {}) {
 
 export function page({ root, path, title, desc, body, cls = '', scripts = [], cta = true }) {
   const fam = ['Archivo:wdth,wght@62..125,300..900', 'JetBrains+Mono:wght@400;500'].map(f => 'family=' + f).join('&');
-  const full = title === 'Aerial Hunter' ? 'Aerial Hunter · Thermal drone search & recovery, Parke County, Indiana' : `${title} · Aerial Hunter`;
+  const full = title === 'Aerial Hunter' ? 'Aerial Hunter · Thermal drone search & recovery, Indiana' : `${title} · Aerial Hunter`;
   return `<!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -116,8 +116,8 @@ export function page({ root, path, title, desc, body, cls = '', scripts = [], ct
 <link rel="apple-touch-icon" href="${root}assets/img/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fam}&display=swap">
-<link rel="stylesheet" href="${root}assets/css/site.css?v=466">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Aerial Hunter","slogan":"Hunt. Search. Find.","telephone":"+1-765-592-5970","areaServed":["Parke County, IN","Vermillion County, IN","Fountain County, IN","Montgomery County, IN","Putnam County, IN","Clay County, IN","Vigo County, IN"],"sameAs":["${FB}"],"description":"Thermal drone deer recovery, lost pet recovery and herd and land surveying."}</script>
+<link rel="stylesheet" href="${root}assets/css/site.css?v=469">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Aerial Hunter","slogan":"Hunt. Search. Find.","telephone":"+1-765-592-5970","areaServed":{"@type":"State","name":"Indiana"},"sameAs":["${FB}"],"description":"Thermal drone deer recovery, lost pet recovery and herd and land surveying."}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('ah-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__ahReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4000)})(document,window)</script>
 </head>
 <body class="${cls}" id="top">
@@ -131,8 +131,8 @@ ${footer(root, { cta })}
 <script src="${root}assets/vendor/gsap.min.js" defer></script>
 <script src="${root}assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="${root}assets/vendor/lenis.min.js" defer></script>
-<script src="${root}assets/js/site.js?v=466" defer></script>
-${scripts.map(s => `<script src="${root}assets/js/${s}?v=466" defer></script>`).join('\n')}
+<script src="${root}assets/js/site.js?v=469" defer></script>
+${scripts.map(s => `<script src="${root}assets/js/${s}?v=469" defer></script>`).join('\n')}
 </body>
 </html>`;
 }

@@ -7,7 +7,6 @@
   var stage = root.querySelector('[data-stage]'), form = root.querySelector('[data-form]'), back = root.querySelector('[data-back]'), next = root.querySelector('[data-next]'), prog = root.querySelector('[data-prog]'), stepsEl = root.querySelector('[data-steps]');
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var PHONE = '765-592-5970', TEL = 'tel:+17655925970', SMS = 'sms:+17655925970';
-  var COUNTIES = ['Parke', 'Vermillion', 'Fountain', 'Montgomery', 'Putnam', 'Clay', 'Vigo', 'Somewhere else'];
   var DIRS = ['NW', 'N', 'NE', 'W', 'Not sure', 'E', 'SW', 'S', 'SE'];
 
   var SERVICES = [
@@ -19,7 +18,7 @@
   var Q = {
     deer: { h: 'Tell us about the shot.', sub: 'The more precise, the faster we can plan the search.', f: [
       { k: 'shot', l: 'When did you shoot?', type: 'datetime-local', req: 1, now: 1 },
-      { k: 'county', l: 'County', type: 'select', req: 1, o: COUNTIES },
+      { k: 'county', l: 'County or town', type: 'text', req: 1, ph: 'County or town in Indiana' },
       { k: 'where', l: 'Where were you hunting?', type: 'text', req: 1, ph: 'Nearest road, town or landmark' },
       { k: 'hit', l: 'Where do you think you hit it?', hint: 'optional', type: 'one', o: ['Heart / lungs', 'Liver', 'Gut', 'Shoulder / leg', 'Not sure'] },
       { k: 'dir', l: 'Which way did it go?', hint: 'last direction you saw it heading', type: 'compass', req: 1 },
@@ -29,15 +28,14 @@
       { k: 'pname', l: 'Name', hint: 'optional', type: 'text', ph: 'e.g. Duke' },
       { k: 'pdesc', l: 'Size, color, collar', type: 'text', req: 1, ph: 'e.g. Medium, black and tan, orange collar' },
       { k: 'seenWhen', l: 'When were they last seen?', type: 'datetime-local', req: 1, now: 1 },
-      { k: 'county', l: 'County', type: 'select', req: 1, o: COUNTIES },
+      { k: 'county', l: 'County or town', type: 'text', req: 1, ph: 'County or town in Indiana' },
       { k: 'seenWhere', l: 'Where were they last seen?', type: 'text', req: 1, ph: 'Address, road or landmark' },
-      { k: 'temper', l: 'How do they act around strangers?', type: 'one', o: ['Friendly', 'Shy', 'Will run', 'Not sure'] },
-      { k: 'photo', l: 'Photo', hint: 'optional, you’ll attach it to the text', type: 'photo' } ] },
+      { k: 'temper', l: 'How do they act around strangers?', type: 'one', o: ['Friendly', 'Shy', 'Will run', 'Not sure'] } ] },
     survey: { h: 'What do you need flown?', sub: 'Rough numbers are fine. We’ll firm it up on the phone.', f: [
       { k: 'kind', l: 'What’s the job?', hint: 'choose all that apply', type: 'many', req: 1, o: ['Herd headcount', 'Stray search', 'Fence line check', 'Pond & drainage', 'Aerial photos / video', 'Something else'] },
       { k: 'acres', l: 'Roughly how many acres?', type: 'one', req: 1, o: ['Under 20', '20–80', '80–200', '200–500', '500+'] },
       { k: 'deliver', l: 'What do you want at the end?', hint: 'choose all that apply', type: 'many', req: 1, o: ['A headcount', 'Photos', 'Video', 'Notes on problems found', 'Overview images'] },
-      { k: 'county', l: 'County', type: 'select', req: 1, o: COUNTIES },
+      { k: 'county', l: 'County or town', type: 'text', req: 1, ph: 'County or town in Indiana' },
       { k: 'where', l: 'Location', type: 'text', ph: 'Road, town or landmark' },
       { k: 'timing', l: 'Timing', type: 'one', o: ['As soon as possible', 'This week', 'This month', 'Flexible'] } ] },
     other: { h: 'How can we help?', f: [
@@ -50,7 +48,7 @@
     { k: 'notes', l: 'Anything else?', hint: 'optional', type: 'area', ph: 'Gate codes, where to park, anything that helps.' } ] };
 
   var params = new URLSearchParams(location.search);
-  var state = { service: null, a: { pref: 'Call me' }, photo: null };
+  var state = { service: null, a: { pref: 'Call me' } };
   var pre = params.get('service');
   SERVICES.forEach(function (s) { if (s.slug === pre || s.id === pre) state.service = s.id; });
   function flowFor() {
@@ -82,8 +80,6 @@
       html = '<label class="fl" for="' + id + '">' + esc(q.l) + (q.hint ? ' <span class="opt-hint">(' + q.hint + ')</span>' : '') + '</label><textarea class="inp" id="' + id + '" name="' + q.k + '" placeholder="' + esc(q.ph || '') + '">' + esc(v || '') + '</textarea>';
     } else if (q.type === 'select') {
       html = '<label class="fl" for="' + id + '">' + esc(q.l) + '</label><select class="inp" id="' + id + '" name="' + q.k + '"><option value="">Select…</option>' + q.o.map(function (o) { return '<option' + (v === o ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
-    } else if (q.type === 'photo') {
-      html = lab + '<label class="photo-drop"><input type="file" accept="image/*" id="' + id + '" data-photo><span class="pd-th" data-pd-th>' + (state.photo ? '<img src="' + state.photo.url + '" alt="">' : '+') + '</span><span class="pd-t"><b data-pd-n>' + (state.photo ? esc(state.photo.name) : 'Add a recent photo') + '</b><span>Text messages can’t carry a photo from a website, so attach it in your messages app when it opens.</span></span></label>';
     } else {
       html = '<label class="fl" for="' + id + '">' + esc(q.l) + (q.hint ? ' <span class="opt-hint">(' + q.hint + ')</span>' : '') + '</label><input class="inp" id="' + id + '" name="' + q.k + '" type="' + q.type + '" value="' + esc(v || '') + '" placeholder="' + esc(q.ph || '') + '"' + (q.ac ? ' autocomplete="' + q.ac + '"' : '') + (q.type === 'tel' ? ' inputmode="tel"' : '') + '>' + (q.now ? '<button type="button" class="link-arrow" data-now="' + q.k + '" style="justify-self:start;font-size:14px">Use the time right now</button>' : '');
     }
@@ -94,7 +90,7 @@
   function rows(id) {
     var r = [];
     if (id === 'service') r.push(['Request', svc().t]);
-    set(id).forEach(function (q) { var v = state.a[q.k]; if (q.type === 'photo') { if (state.photo) r.push([q.l, state.photo.name + ' (attach in your text)']); return; } if (v && (!Array.isArray(v) || v.length)) r.push([q.l, Array.isArray(v) ? v.join(', ') : q.type === 'datetime-local' ? fmtWhen(v) : v]); });
+    set(id).forEach(function (q) { var v = state.a[q.k]; if (v && (!Array.isArray(v) || v.length)) r.push([q.l, Array.isArray(v) ? v.join(', ') : q.type === 'datetime-local' ? fmtWhen(v) : v]); });
     return r;
   }
 
@@ -124,8 +120,6 @@
       stage.querySelectorAll('[data-edit]').forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.edit); }); });
       stage.querySelectorAll('input[name=service]').forEach(function (r) { r.addEventListener('change', function () { var old = state.service; state.service = r.value; FLOW = flowFor(); if (old !== r.value) setTimeout(function () { go(1); }, 260); }); });
       stage.querySelectorAll('[data-now]').forEach(function (b) { b.addEventListener('click', function () { var i = stage.querySelector('#f-' + b.dataset.now); i.value = nowLocal(); i.closest('.fld').classList.remove('err'); }); });
-      var ph = stage.querySelector('[data-photo]');
-      if (ph) ph.addEventListener('change', function () { var f = ph.files && ph.files[0]; if (!f) return; if (state.photo) URL.revokeObjectURL(state.photo.url); state.photo = { name: f.name, url: URL.createObjectURL(f) }; stage.querySelector('[data-pd-th]').innerHTML = '<img src="' + state.photo.url + '" alt="Your pet">'; stage.querySelector('[data-pd-n]').textContent = f.name; });
       if (G && !RM) G.fromTo(stage.querySelectorAll('.ct-step > *, .two > *'), { opacity: 0, y: dir < 0 ? -24 : 28 }, { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out', stagger: 0.04 });
       if (dir) { var h = stage.querySelector('.ct-q'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
     };
@@ -136,7 +130,7 @@
 
   function collect() {
     stage.querySelectorAll('.fld[data-k]').forEach(function (f) {
-      var k = f.dataset.k; if (k === 'service' || k === 'photo') return;
+      var k = f.dataset.k; if (k === 'service') return;
       var ins = f.querySelectorAll('input,textarea,select'); if (!ins.length) return;
       if (ins[0].type === 'checkbox') state.a[k] = Array.prototype.filter.call(ins, function (i) { return i.checked; }).map(function (i) { return i.value; });
       else if (ins[0].type === 'radio') { var c = Array.prototype.filter.call(ins, function (i) { return i.checked; })[0]; state.a[k] = c ? c.value : ''; }
@@ -170,12 +164,11 @@
 
   function message() {
     var a = state.a, L = ['AERIAL HUNTER REQUEST: ' + svc().t.toUpperCase()];
-    var where = function () { return [a.county ? a.county + (a.county === 'Somewhere else' ? '' : ' Co.') : '', a.where || a.seenWhere || ''].filter(Boolean).join(', '); };
+    var where = function () { return [a.county || '', a.where || a.seenWhere || ''].filter(Boolean).join(', '); };
     if (state.service === 'pet') {
       L.push('Animal: ' + a.animal + (a.pname ? ' named ' + a.pname : '')); L.push('Looks like: ' + a.pdesc);
       L.push('Last seen: ' + fmtWhen(a.seenWhen) + ', ' + where());
       if (a.temper) L.push('With strangers: ' + a.temper);
-      if (state.photo) L.push('Photo: attaching to this text');
     } else if (state.service === 'survey') {
       L.push('Job: ' + a.kind.join(', ')); L.push('Acres: ' + a.acres); L.push('Wants: ' + a.deliver.join(', '));
       L.push('Where: ' + where()); if (a.timing) L.push('Timing: ' + a.timing);
@@ -190,7 +183,7 @@
     var first = (state.a.name || '').split(' ')[0] || 'there';
     var html = '<div class="ct-step done"><span class="done-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>' +
       '<p class="eyebrow ct-k">Ready to send</p><h2 class="ct-q" tabindex="-1">Almost there, ' + esc(first) + '.</h2>' +
-      '<p class="ct-sub" style="margin-top:0">Tap <b>Text these details</b> and your messages app opens with everything below, addressed to ' + PHONE + '. Just press send.' + (state.photo ? ' Attach your pet’s photo before you do.' : '') + '</p>' +
+      '<p class="ct-sub" style="margin-top:0">Tap <b>Text these details</b> and your messages app opens with everything below, addressed to ' + PHONE + '. Just press send.</p>' +
       '<div class="sms-prev" data-sms-prev>' + esc(body) + '</div>' +
       '<div class="done-btns"><a class="btn btn-lg" href="' + href + '" data-sms-link><span>Text these details</span></a><a class="btn btn-ghost btn-lg" href="' + TEL + '"><span>Call ' + PHONE + '</span></a><button type="button" class="btn btn-ghost btn-lg" data-copy><span>Copy details</span></button></div>' +
       '<p class="done-note">Nothing is sent from this website. If time matters, calling is fastest. On a computer? Call or text ' + PHONE + ' from your phone and paste the copied details.</p>' +
@@ -200,7 +193,7 @@
     stepsEl.querySelectorAll('li').forEach(function (li) { li.className = 'done'; li.lastChild.textContent = 'Done'; });
     stage.querySelector('.ct-q').focus({ preventScroll: true });
     stage.querySelector('[data-copy]').addEventListener('click', function (e) { var b = e.currentTarget, ok = function () { b.querySelector('span').textContent = 'Copied'; setTimeout(function () { b.querySelector('span').textContent = 'Copy details'; }, 2000); }; if (navigator.clipboard) navigator.clipboard.writeText(body).then(ok, ok); else ok(); });
-    stage.querySelector('[data-restart]').addEventListener('click', function () { state = { service: null, a: { pref: 'Call me' }, photo: null }; FLOW = flowFor(); root.querySelector('[data-nav]').hidden = false; step = 0; render(-1); });
+    stage.querySelector('[data-restart]').addEventListener('click', function () { state = { service: null, a: { pref: 'Call me' } }; FLOW = flowFor(); root.querySelector('[data-nav]').hidden = false; step = 0; render(-1); });
     scrollToForm();
     if (G && !RM) G.fromTo(stage.querySelectorAll('.done > *'), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out', stagger: 0.06 });
   }

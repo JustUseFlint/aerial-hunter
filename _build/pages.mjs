@@ -1,5 +1,5 @@
 import { esc, img, pic, arrow, phoneIco, smsIco, fbIco, callBtn, page, PHONE, TEL, SMS, FB } from './shell.mjs';
-import { services, counties, faqs, faqCats } from './data.mjs';
+import { services, faqs, faqCats } from './data.mjs';
 import { mapSVG } from './map.mjs';
 
 const hudCorners = `<span class="hc hc-tl"></span><span class="hc hc-tr"></span><span class="hc hc-bl"></span><span class="hc hc-br"></span>`;
@@ -20,10 +20,10 @@ function thermalHero(root) {
     </div>
   </div>
   <div class="hero-in wrap">
-    <p class="hero-eb mono" data-fade><span class="dot-live"></span>Parke County, Indiana · Part 107 certified</p>
+    <p class="hero-eb mono" data-fade><span class="dot-live"></span>Indiana · Part 107 certified</p>
     <h1 class="hero-h" data-split="hero">Hunt. Search. <em>Find.</em></h1>
     <div class="hero-foot">
-      <p class="lead hero-lede" data-fade>Thermal drone recovery for lost deer, missing pets and livestock, day or night, across west-central Indiana.</p>
+      <p class="lead hero-lede" data-fade>Thermal drone recovery for lost deer, missing pets and livestock, day or night, anywhere in Indiana.</p>
       <div class="hero-ctas" data-fade>${callBtn('btn-lg')}<a class="btn btn-ghost btn-lg" href="${root}how-it-works/"><span>How a search works ${arrow}</span></a></div>
     </div>
     <p class="hero-hint mono" data-fade aria-hidden="true">Move your cursor to scan</p>
@@ -75,7 +75,7 @@ function facts() {
       <div class="num" data-reveal><span class="num-v"><span data-count="107">107</span></span><span class="num-l">FAA Part 107 certified remote pilot</span></div>
       <div class="num" data-reveal><span class="num-v"><span data-count="640">640</span><small>×</small><span data-count="512">512</span></span><span class="num-l">Thermal camera resolution on the DJI Matrice 4T</span></div>
       <div class="num" data-reveal><span class="num-v"><span data-count="1800">1,800</span><small>m</small></span><span class="num-l">Laser rangefinder reach (DJI spec)</span></div>
-      <div class="num" data-reveal><span class="num-v"><span data-count="7">7</span></span><span class="num-l">Counties served, with Parke at the center</span></div>
+      <div class="num" data-reveal><span class="num-v">IN</span><span class="num-l">We search anywhere in Indiana. Travel is measured from Rockville.</span></div>
     </div>
   </div>
 </section>`;
@@ -88,16 +88,21 @@ function marquee() {
 
 function mapBlock(root, small = false) {
   if (small) return `<a class="map-mini" href="${root}service-area/" data-cursor="Open">${mapSVG({ small: true })}</a>`;
-  return `<div class="map-wrap" data-map>
+  return `<div class="map-wrap">
     <div class="map-fig">${mapSVG()}</div>
     <div class="map-side">
-      <div class="map-info" aria-live="polite" data-map-info>
-        <p class="eyebrow" data-mi-k>Home county</p>
-        <h3 class="mi-h" data-mi-h>Parke County</h3>
-        <p class="mi-s mono" data-mi-s>County seat · Rockville</p>
-        <p class="mi-p" data-mi-p>${counties[0].note}</p>
+      <div class="map-info">
+        <p class="eyebrow">Statewide</p>
+        <h3 class="mi-h">All of Indiana</h3>
+        <p class="mi-s mono">Home base · Rockville</p>
+        <p class="mi-p">We search anywhere in the state. Travel is $1 per mile after 50 miles from Rockville.</p>
       </div>
-      <ul class="cty-list">${counties.map((c, i) => `<li><button type="button" class="cty-b${c.home ? ' on' : ''}" data-c="${c.id}" data-name="${c.name}" data-seat="${c.seat}" data-note="${esc(c.note)}" data-home="${c.home ? 1 : 0}"><span>${c.name}</span><span class="mono cty-r">${c.home ? 'Home' : c.seat}</span></button></li>`).join('')}</ul>
+      <dl class="travel-facts mono">
+        <div><dt>Home base</dt><dd>Rockville</dd></div>
+        <div><dt>First 50 miles</dt><dd>Included</dd></div>
+        <div><dt>After 50 miles</dt><dd>$1 / mile</dd></div>
+      </dl>
+      <div class="map-cta">${callBtn()}<a class="link-arrow" href="${root}services/#pricing">See the rates ${arrow}</a></div>
     </div>
   </div>`;
 }
@@ -112,7 +117,7 @@ ${marquee()}
 <section class="statement wrap grid">
   <p class="eyebrow st-eb" data-fade>(Aerial Hunter)</p>
   <div class="st-body">
-    <p class="focus" data-focus>Aerial Hunter is a drone search service based in Parke County, Indiana. A certified Part 107 pilot flies a DJI Matrice 4T thermal drone over fields, timber and creek bottoms to find what’s hard to see from the ground: a deer that ran after the shot, a dog that slipped its collar, a herd spread across back pasture.</p>
+    <p class="focus" data-focus>Aerial Hunter is a drone search service based in Rockville, Indiana, serving the whole state. A certified Part 107 pilot flies a DJI Matrice 4T thermal drone over fields, timber and creek bottoms to find what’s hard to see from the ground: a deer that ran after the shot, a dog that slipped its collar, a herd spread across back pasture.</p>
     <a class="link-arrow" href="about/">About Aerial Hunter ${arrow}</a>
   </div>
 </section>
@@ -156,9 +161,9 @@ ${facts()}
   <div class="wrap grid">
     <div class="at-txt">
       <p class="eyebrow">Service area</p>
-      <h2 id="area-h" class="h-l" data-split>Parke County and everything around it.</h2>
-      <ul class="at-list" data-fade>${counties.map(c => `<li class="${c.home ? 'is-home' : ''}">${c.name}</li>`).join('')}</ul>
-      <a class="link-arrow" href="service-area/" data-fade>See the map ${arrow}</a>
+      <h2 id="area-h" class="h-l" data-split>All of Indiana.</h2>
+      <p class="at-p" data-fade>We search the whole state, from a home base in Rockville. Travel is $1 per mile after 50 miles.</p>
+      <a class="link-arrow" href="service-area/" data-fade>See the service area ${arrow}</a>
     </div>
     <div class="at-map" data-fade>${mapBlock(root, true)}</div>
   </div>
@@ -169,7 +174,7 @@ ${facts()}
   <div class="field-grid">
     <figure class="fg-a" data-img-reveal>${img(root, 'recovery-real', 'A hunter kneels in autumn woods holding the antlers of a recovered buck, a drone controller in the foreground')}<figcaption class="mono">A recovery shared on the Aerial Hunter Facebook page.</figcaption></figure>
     <div class="fg-b">
-      <p class="focus focus-s" data-focus>Every search is different: a ridge in Parke County, a cut cornfield in Vigo, a creek bottom off Sugar Creek. The latest finds, flights and updates go up on Facebook first.</p>
+      <p class="focus focus-s" data-focus>Every search is different: a ridge, a cut cornfield, a creek bottom. The latest finds, flights and updates go up on Facebook first.</p>
       <a class="fb-card" href="${FB}" target="_blank" rel="noopener" data-cursor="Open">
         <img src="assets/img/logo-square.png" alt="" width="512" height="512" loading="lazy">
         <span><b>Aerial Hunter</b><span class="mono">Facebook · Hunt. Search. Find.</span></span>
@@ -178,7 +183,7 @@ ${facts()}
     </div>
   </div>
 </section>`;
-  return page({ root, path: '', title: 'Aerial Hunter', desc: 'Thermal drone deer recovery, lost pet recovery and herd & land surveying in Parke County, Indiana and the surrounding counties. Call 765-592-5970.', body, cls: 'p-home', scripts: [] });
+  return page({ root, path: '', title: 'Aerial Hunter', desc: 'Thermal drone deer recovery, lost pet recovery and herd & land surveying anywhere in Indiana. Call 765-592-5970.', body, cls: 'p-home', scripts: [] });
 }
 
 /* ---------- SERVICES INDEX ---------- */
@@ -254,7 +259,7 @@ ${process(root)}
     ${callBtn('', 'Call ' + PHONE)}
   </div>
 </section>`;
-  return page({ root, path: 'services/', title: 'Services', desc: 'Thermal drone deer recovery, lost pet recovery and herd & land surveying around Parke County, Indiana.', body, cls: 'p-services' });
+  return page({ root, path: 'services/', title: 'Services', desc: 'Thermal drone deer recovery, lost pet recovery and herd & land surveying anywhere in Indiana.', body, cls: 'p-services' });
 }
 
 function process(root) {
@@ -376,7 +381,7 @@ ${s.deliver ? `<section class="caps-cloud wrap"><p class="eyebrow">What you can 
     <span class="cn-txt wrap"><span class="mono">Next service</span><span class="cn-t">${next.name}</span><span class="cn-s">${next.kicker} ${arrow}</span></span>
   </a>
 </section>`;
-  return page({ root, path: 'services/', title: s.name, desc: `${s.name} by thermal drone in Parke County, Indiana and the surrounding counties. ${s.lede}`, body, cls: `p-case ${s.cls}` });
+  return page({ root, path: 'services/', title: s.name, desc: `${s.name} by thermal drone anywhere in Indiana. ${s.lede}`, body, cls: `p-case ${s.cls}` });
 }
 
 /* ---------- HOW IT WORKS / GEAR ---------- */
@@ -464,25 +469,28 @@ export function serviceArea() {
   const body = `
 <section class="phero wrap">
   <p class="eyebrow" data-fade>Service area</p>
-  <h1 class="h-xxl" data-split="hero">Parke County<br>&amp; around.</h1>
-  <p class="lead phero-lede" data-fade>Based in Parke County, searching the six counties that border it. Tap a county to see what’s covered.</p>
+  <h1 class="h-xxl" data-split="hero">All of Indiana.</h1>
+  <p class="lead phero-lede" data-fade>We search the whole state. Home base is Rockville; travel is $1 per mile after 50 miles.</p>
 </section>
 <section class="area wrap" aria-label="Map of the service area">${mapBlock(root)}</section>
 
-<section class="csh-window" data-window aria-label="Parke County"><div class="cw-in">${img(root, 'covered-bridge', 'Aerial view of a red covered bridge over a creek among autumn trees')}<div class="cw-cap wrap"><p class="mono">Parke County, Indiana</p><p class="cw-t">Covered Bridge Capital of the World.</p></div></div></section>
+<section class="csh-window" data-window aria-label="Home base, Parke County"><div class="cw-in">${img(root, 'covered-bridge', 'Aerial view of a red covered bridge over a creek among autumn trees')}<div class="cw-cap wrap"><p class="mono">Home base. Parke County, Indiana</p><p class="cw-t">Covered Bridge Capital of the World.</p></div></div></section>
 
 <section class="statement wrap grid">
   <p class="eyebrow st-eb" data-fade>(The ground)</p>
   <div class="st-body">
-    <p class="focus" data-focus>West-central Indiana is good deer country and hard searching country: steep ravines off Sugar Creek, river bottoms along the Wabash, standing corn into November, and fencerows that run for miles. That’s exactly the ground where a drone earns its keep.</p>
+    <p class="focus" data-focus>Indiana is hard searching country: timber, standing corn, fencerows and creek bottoms. That’s the ground where a drone earns its keep.</p>
   </div>
 </section>
 
-<section class="outside wrap grid">
-  <h2 class="h-l" data-split>Outside the area?</h2>
-  <div data-fade><p class="lead">Call anyway. Depending on the distance and the job, it may still be possible.</p>${callBtn()}</div>
+<section class="travel-band wrap grid">
+  <h2 class="h-l" data-split>Travel from Rockville.</h2>
+  <div data-fade>
+    <p class="lead">The first 50 miles from Rockville are included. After that, travel is $1 per mile. We’ll confirm the cost before we drive out.</p>
+    ${callBtn()}
+  </div>
 </section>`;
-  return page({ root, path: 'service-area/', title: 'Service area', desc: 'Aerial Hunter serves Parke County, Indiana and the surrounding counties: Vermillion, Fountain, Montgomery, Putnam, Clay and Vigo.', body, cls: 'p-area', scripts: ['tools.js'] });
+  return page({ root, path: 'service-area/', title: 'Service area', desc: 'Aerial Hunter serves all of Indiana. Home base is Rockville; travel is $1 per mile after 50 miles.', body, cls: 'p-area' });
 }
 
 /* ---------- ABOUT ---------- */
@@ -492,8 +500,8 @@ export function about() {
   const body = `
 <section class="csh-type wrap">
   <p class="cs-eb mono" data-fade><span>About</span><span>Aerial Hunter</span></p>
-  <h1 class="cs-title" data-split="hero">Local ground. Eyes in the sky.</h1>
-  <div class="csh-row"><p class="lead" data-fade>A drone search service from Parke County, Indiana, run by a certified Part 107 pilot who knows this ground.</p></div>
+  <h1 class="cs-title" data-split="hero">Indiana ground. Eyes in the sky.</h1>
+  <div class="csh-row"><p class="lead" data-fade>A drone search service based in Rockville, Indiana, run by a certified Part 107 pilot. We search anywhere in the state.</p></div>
 </section>
 <section class="csh-window" data-window aria-label="Pilot at dusk"><div class="cw-in">${img(root, 'woods-dusk', 'Hardwood creek bottom at dusk with mist over the water')}</div></section>
 
@@ -525,7 +533,7 @@ export function about() {
     <a class="btn btn-lg" href="${FB}" target="_blank" rel="noopener" data-magnetic><span>${fbIco}Aerial Hunter on Facebook</span></a>
   </div>
 </section>`;
-  return page({ root, path: 'about/', title: 'About', desc: 'Aerial Hunter is a thermal drone search service from Parke County, Indiana, run by a certified Part 107 pilot.', body, cls: 'p-about' });
+  return page({ root, path: 'about/', title: 'About', desc: 'Aerial Hunter is a thermal drone search service based in Rockville, Indiana, serving the whole state, run by a certified Part 107 pilot.', body, cls: 'p-about' });
 }
 
 /* ---------- FAQ ---------- */

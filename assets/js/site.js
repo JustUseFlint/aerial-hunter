@@ -379,7 +379,7 @@
 
   // map draw-in
   $$('.map').forEach(function (m) {
-    var ps = $$('.cty-p', m);
+    var ps = $$('.cty-p, .in-p', m);
     gsap.fromTo(ps, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut', stagger: 0.08, scrollTrigger: { trigger: m, start: 'top 85%', once: true }, onComplete: function () { gsap.set(ps, { clearProps: 'strokeDasharray,strokeDashoffset' }); } });
     gsap.fromTo($$('.twn', m), { opacity: 0 }, { opacity: 1, duration: 0.6, stagger: 0.04, delay: 0.8, scrollTrigger: { trigger: m, start: 'top 85%', once: true } });
   });

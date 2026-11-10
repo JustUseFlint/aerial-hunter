@@ -3,15 +3,6 @@ export const TEL = 'tel:+17655925970';
 export const SMS = 'sms:+17655925970';
 export const FB = 'https://www.facebook.com/people/Aerial-Hunter/61583336984487/';
 
-export const counties = [
-  { id: 'parke', name: 'Parke', seat: 'Rockville', home: true, note: 'Home county. Rockville, Montezuma, Marshall, Rosedale, Bloomingdale, Mecca, Bridgeton and the country roads between.' },
-  { id: 'vermillion', name: 'Vermillion', seat: 'Newport', note: 'West across the Wabash, from Clinton up to Cayuga.' },
-  { id: 'fountain', name: 'Fountain', seat: 'Covington', note: 'North of Parke, along the Wabash and Coal Creek.' },
-  { id: 'montgomery', name: 'Montgomery', seat: 'Crawfordsville', note: 'Northeast, including the Sugar Creek country around Shades.' },
-  { id: 'putnam', name: 'Putnam', seat: 'Greencastle', note: 'East, from Big Walnut Creek to the Cagles Mill area.' },
-  { id: 'clay', name: 'Clay', seat: 'Brazil', note: 'Southeast, around Brazil and Center Point.' },
-  { id: 'vigo', name: 'Vigo', seat: 'Terre Haute', note: 'South, Terre Haute and the farm ground around it.' }
-];
 
 const deerTL = [
   ['Phase 01', 'First call', 'Tell us when and where you shot, what you saw, and the last direction the deer went. We tell you honestly whether a flight is likely to help.'],
@@ -137,6 +128,6 @@ export const faqs = [
   ['drone', 'What weather can you fly in?', 'Not in rain, heavy fog or strong wind. Cool, still, dry nights give the best thermal picture. If the weather is against a good search, we’ll tell you straight.'],
   ['drone', 'What drone do you use?', 'A DJI Matrice 4T, an enterprise drone built for search work. It carries a 640 × 512 thermal camera, zoom cameras, a laser rangefinder and a near-infrared auxiliary light. See the gear page for more.'],
   ['price', 'How much does a search cost?', 'Deer Recovery is $250 for up to 2 hours, plus $100 per hour for each additional hour, a $50 finder’s fee (dead or alive), and a $1 per mile travel fee after 50 miles from Rockville. Lost Pet Recovery is $150 per hour, with the same $1 per mile travel fee after 50 miles from Rockville. Herd & Land Surveying depends on the job; call for more information.'],
-  ['price', 'What areas do you cover?', 'Parke County and the surrounding counties: Vermillion, Fountain, Montgomery, Putnam, Clay and Vigo. Further out? Call and ask.']
+  ['price', 'What areas do you cover?', 'All of Indiana. Home base is Rockville; travel is $1 per mile after 50 miles from Rockville.']
 ];
 export const faqCats = [['all', 'All'], ['deer', 'Deer'], ['pet', 'Pets'], ['survey', 'Surveying'], ['drone', 'Drone & rules'], ['price', 'Pricing & area']];
