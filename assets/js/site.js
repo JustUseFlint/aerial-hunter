@@ -118,6 +118,98 @@
   }
   $$('details.acc').forEach(function (dt) { dt.addEventListener('toggle', function () { if (hasG) setTimeout(function () { ScrollTrigger.refresh(); }, 650); }); });
 
+  // Gallery lightbox
+  (function () {
+    var grid = $('[data-gallery]');
+    var lb = $('[data-lightbox]');
+    if (!grid || !lb) return;
+    if (lb.parentNode !== d.body) d.body.appendChild(lb);
+    var items = $$('[data-gallery] .gal-btn');
+    if (!items.length) return;
+    var img = $('[data-lb-img]', lb);
+    var i = 0, open = false, last = null;
+    var show = function (n) {
+      i = (n + items.length) % items.length;
+      var el = items[i];
+      var alt = el.getAttribute('data-alt') || '';
+      var webp = el.getAttribute('data-full-webp');
+      var jpg = el.getAttribute('data-full-jpg');
+      img.alt = alt;
+      lb.setAttribute('aria-label', alt || 'Recovery photo');
+      if (webp && img.src !== new URL(webp, location.href).href) {
+        img.src = webp;
+        img.onerror = function () { if (jpg) img.src = jpg; img.onerror = null; };
+      } else if (jpg) img.src = jpg;
+      // preload neighbors
+      [i - 1, i + 1].forEach(function (k) {
+        var nb = items[(k + items.length) % items.length];
+        var src = nb.getAttribute('data-full-webp') || nb.getAttribute('data-full-jpg');
+        if (src) { var pre = new Image(); pre.src = src; }
+      });
+    };
+    var lock = function (on) {
+      if (on) {
+        if (lenis) lenis.stop();
+        d.body.style.overflow = 'hidden';
+      } else {
+        if (lenis) lenis.start();
+        d.body.style.overflow = '';
+      }
+    };
+    var openAt = function (n, from) {
+      last = from || d.activeElement;
+      show(n);
+      lb.hidden = false;
+      open = true;
+      H.classList.add('lb-open');
+      lock(true);
+      var closeBtn = $('[data-lb-close]:not(.lb-scrim)', lb) || $('[data-lb-close]', lb);
+      if (closeBtn) closeBtn.focus();
+    };
+    var close = function () {
+      if (!open) return;
+      lb.hidden = true;
+      open = false;
+      H.classList.remove('lb-open');
+      lock(false);
+      if (last && last.focus) last.focus();
+      last = null;
+    };
+    items.forEach(function (el, n) {
+      el.addEventListener('click', function () { openAt(n, el); });
+    });
+    lb.addEventListener('click', function (e) {
+      if (e.target.closest('[data-lb-close]')) { e.preventDefault(); close(); }
+      else if (e.target.closest('[data-lb-prev]')) { e.preventDefault(); show(i - 1); }
+      else if (e.target.closest('[data-lb-next]')) { e.preventDefault(); show(i + 1); }
+    });
+    d.addEventListener('keydown', function (e) {
+      if (!open) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(i + 1); return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); return; }
+      if (e.key === 'Tab') {
+        var fs = $$('button', lb).filter(function (b) { return b.getAttribute('tabindex') !== '-1'; });
+        if (!fs.length) return;
+        var first = fs[0], lastB = fs[fs.length - 1], cur = d.activeElement;
+        if (e.shiftKey && (cur === first || !lb.contains(cur))) { e.preventDefault(); lastB.focus(); }
+        else if (!e.shiftKey && (cur === lastB || !lb.contains(cur))) { e.preventDefault(); first.focus(); }
+      }
+    });
+    var sx = 0, sy = 0, tracking = false;
+    lb.addEventListener('touchstart', function (e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY; tracking = true;
+    }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (!tracking || !e.changedTouches || !e.changedTouches.length) return;
+      tracking = false;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) { if (dx < 0) show(i + 1); else show(i - 1); }
+    }, { passive: true });
+  })();
+
+
   /* ---------- Hero thermal scan ---------- */
   var hm = $('[data-scan]');
   var placeHero = function () {};

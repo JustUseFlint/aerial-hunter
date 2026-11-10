@@ -18,6 +18,8 @@ Real, from the Aerial Hunter Facebook page:
 - `assets/img/cover.webp`, `cover-lg.webp` — the Facebook cover photo
 - `assets/img/recovery-real.webp` — a recovery photo posted on the Facebook page (confirm OK to use)
 - `assets/img/og.jpg` — share card built from the logo and cover
+- `assets/img/gallery-*.jpg` / `.webp` — real recovery photos from the owner (EXIF and GPS stripped)
+- `assets/img/recovered-*.jpg` / `.webp` — two of those recoveries, also on the Deer Recovery page
 
 AI-generated atmosphere images (not real Aerial Hunter jobs; replace with real photos when available):
 - `hero-ir.webp`, `hero-night.webp` (night version derived from hero-ir)

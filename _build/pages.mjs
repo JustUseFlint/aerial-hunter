@@ -552,6 +552,54 @@ export function faq() {
   return page({ root, path: 'faq/', title: 'FAQ', desc: 'Answers about thermal drone deer recovery, lost pet searches, Indiana drone rules, weather limits and pricing.', body, cls: 'p-faq' });
 }
 
+
+/* ---------- GALLERY ---------- */
+export function gallery(root = '../') {
+  const photos = [
+    { id: 'gallery-1', w: 1600, h: 2133, fw: 1600, alt: 'Two men with a recovered buck on an ATV in the woods. One holds the antlers; the other holds a DJI drone and its controller.' },
+    { id: 'gallery-2', w: 1600, h: 2133, fw: 1600, alt: 'At night, a boy holds the antlers of a recovered buck while a man kneels beside them with a drone and its controller.' },
+    { id: 'gallery-3', w: 1200, h: 1600, fw: 1200, alt: 'A recovered buck in the bed of a UTV in a sunny field, with a DJI thermal drone and its controller resting on the deer.' },
+    { id: 'gallery-4', w: 1600, h: 2133, fw: 1600, alt: 'Another view of the same recovered buck in the UTV bed, the thermal drone and controller set on its side.' }
+  ];
+  const card = (ph, i) => {
+    const base = `${root}assets/img/${ph.id}`;
+    return `<figure class="gal-item" data-img-reveal>
+    <button type="button" class="gal-btn" data-cursor="View" aria-label="${esc(ph.alt)}" data-full-jpg="${base}.jpg" data-full-webp="${base}.webp" data-alt="${esc(ph.alt)}">
+      <picture>
+        <source type="image/webp" srcset="${base}-sm.webp 800w, ${base}.webp ${ph.fw}w" sizes="(max-width: 900px) 100vw, 46vw">
+        <source type="image/jpeg" srcset="${base}-sm.jpg 800w, ${base}.jpg ${ph.fw}w" sizes="(max-width: 900px) 100vw, 46vw">
+        <img src="${base}.jpg" alt="" width="${ph.w}" height="${ph.h}" ${i === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async">
+      </picture>
+    </button>
+  </figure>`;
+  };
+  const body = `
+<section class="phero wrap">
+  <p class="eyebrow" data-fade>Gallery</p>
+  <h1 class="h-xxl" data-split="hero">Recent recoveries.</h1>
+  <p class="lead phero-lede" data-fade>Photos from past jobs in the field.</p>
+</section>
+<section class="gal wrap" aria-label="Recovery photos">
+  <div class="gal-grid" data-gallery>
+    ${photos.map(card).join('')}
+  </div>
+</section>
+<section class="gal-cta wrap" data-reveal>
+  <p class="eyebrow">Deer recovery</p>
+  <h2 class="h-l">Lost a deer?</h2>
+  <p class="lead">Send the details of the shot and we’ll come search.</p>
+  <div class="gal-cta-btns">${callBtn()}<a class="btn btn-ghost" href="${root}contact/?service=deer-recovery"><span>Send the details ${arrow}</span></a></div>
+</section>
+<div class="lb" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Recovery photo">
+  <button class="lb-scrim" type="button" data-lb-close tabindex="-1" aria-label="Close photo"></button>
+  <figure class="lb-frame"><img data-lb-img alt="" width="1600" height="2133"></figure>
+  <button class="lb-close" type="button" data-lb-close aria-label="Close photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+  <button class="lb-prev" type="button" data-lb-prev aria-label="Previous photo"><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+  <button class="lb-next" type="button" data-lb-next aria-label="Next photo"><svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+</div>`;
+  return page({ root, path: 'gallery/', title: 'Gallery', desc: 'Recent recoveries from the field. Photos from past Aerial Hunter jobs in Indiana.', body, cls: 'p-gallery' });
+}
+
 /* ---------- CONTACT ---------- */
 export function contact() {
   const root = '../';
