@@ -63,7 +63,7 @@ export const services = [
       ['Line up permission', 'If the deer may have crossed onto a neighbor’s ground, ask them now. We can’t recover on land without it.'],
       ['Keep the area clear', 'People and dogs show up on thermal too. The fewer warm bodies wandering the woods, the cleaner the search.']
     ],
-    limits: ['Dense evergreens, cedar thickets and full leaf canopy can hide a heat signature.', 'Rain, fog and strong wind can ground a flight.', 'As a downed deer cools, it gets harder to pick out. The sooner we search, the better.'],
+
     other: ['lost-pet-recovery', 'herd-land-surveying']
   },
   {
@@ -91,7 +91,7 @@ export const services = [
       ['Get a photo ready', 'A clear recent photo helps us confirm it’s your pet on the zoom camera.'],
       ['Don’t chase', 'If you spot them, sit down and stay quiet. Chasing can send a scared animal running.']
     ],
-    limits: ['Thermal can’t see through roofs, barns, culverts or thick brush. A hiding cat may be out of view.', 'Warm days wash out contrast. Night and early morning work best.', 'Rain, fog and strong wind can ground a flight.'],
+
     other: ['deer-recovery', 'herd-land-surveying']
   },
   {
@@ -118,7 +118,7 @@ export const services = [
       ['Pick a time', 'Thermal counts work best early or after dark. Photos and video look best in daylight.'],
       ['Tell the neighbors', 'If the flight runs close to a property line, a quick heads-up keeps everyone comfortable.']
     ],
-    limits: ['This isn’t a licensed land survey. For legal boundaries, hire a licensed surveyor.', 'Heavy timber canopy can hide animals underneath.', 'Rain, fog and strong wind can ground a flight.'],
+
     deliver: ['Herd headcounts', 'Stray searches', 'Fence line checks', 'Pond & drainage views', 'Aerial photos', 'Aerial video', 'Thermal night counts'],
     other: ['deer-recovery', 'lost-pet-recovery']
   }

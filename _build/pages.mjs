@@ -376,15 +376,6 @@ ${s.slug === 'deer-recovery' ? `<section class="legal wrap" aria-labelledby="leg
 
 ${s.deliver ? `<section class="caps-cloud wrap"><p class="eyebrow">What you can ask for</p><ul class="cloud">${s.deliver.map(d => `<li data-reveal>${d}</li>`).join('')}</ul></section>` : ''}
 
-<section class="cs-sec limits wrap grid" aria-labelledby="lim-h">
-  <h2 id="lim-h" class="cs-h2 lim-h" data-split>Where thermal struggles.</h2>
-  <div class="lim-b">
-    <p class="lead" data-fade>Thermal is powerful, not magic. You deserve to know the limits before you call.</p>
-    <ul class="lim-list">${s.limits.map((l, k) => `<li data-reveal><span class="mono">${pad(k + 1)}</span>${l}</li>`).join('')}</ul>
-    <a class="link-arrow" href="${root}faq/" data-fade>More in the FAQ ${arrow}</a>
-  </div>
-</section>
-
 <section class="cs-next">
   <a class="cn-a" href="${root}services/${next.slug}/" data-cursor="Next">
     <span class="cn-media">${img(root, next.hero, '')}</span>
