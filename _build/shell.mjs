@@ -2,6 +2,14 @@ import { PHONE, TEL, SMS, FB, services } from './data.mjs';
 export const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const DIMS = { 'thermal-dog': [1152, 864], 'land-ortho': [1152, 864], 'thermal-herd': [1152, 864], 'pilot-dusk': [864, 1152], cover: [1152, 1536], 'recovery-real': [960, 963] };
 export const img = (root, n, alt = '', cls = '', extra = '') => { const [w, h] = DIMS[n] || [1280, 720]; return `<img src="${root}assets/img/${n}.webp" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async"${cls ? ` class="${cls}"` : ''}${extra ? ' ' + extra : ''}>`; };
+export const pic = (root, name, alt, { w = 1200, h = 1600, sizes = '(max-width: 900px) 100vw, 46vw' } = {}) => {
+  const base = `${root}assets/img/${name}`;
+  return `<picture>
+    <source type="image/webp" srcset="${base}-sm.webp 600w, ${base}.webp 1200w" sizes="${sizes}">
+    <source type="image/jpeg" srcset="${base}-sm.jpg 600w, ${base}.jpg 1200w" sizes="${sizes}">
+    <img src="${base}.jpg" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async">
+  </picture>`;
+};
 export const arrow = `<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>`;
 export const phoneIco = `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6.3 1.2 4-2 1.6a12 12 0 006.2 6.2l1.6-2 4 1.2.3 2.6c0 1-.9 2-2 2C10.8 19.4 4.6 13.2 4.6 5.5c0-1.1 1-2 2-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 export const smsIco = `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
@@ -108,7 +116,7 @@ export function page({ root, path, title, desc, body, cls = '', scripts = [], ct
 <link rel="apple-touch-icon" href="${root}assets/img/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fam}&display=swap">
-<link rel="stylesheet" href="${root}assets/css/site.css?v=463">
+<link rel="stylesheet" href="${root}assets/css/site.css?v=465">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Aerial Hunter","slogan":"Hunt. Search. Find.","telephone":"+1-765-592-5970","areaServed":["Parke County, IN","Vermillion County, IN","Fountain County, IN","Montgomery County, IN","Putnam County, IN","Clay County, IN","Vigo County, IN"],"sameAs":["${FB}"],"description":"Thermal drone deer recovery, lost pet recovery and herd and land surveying."}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('ah-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__ahReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4000)})(document,window)</script>
 </head>
@@ -123,8 +131,8 @@ ${footer(root, { cta })}
 <script src="${root}assets/vendor/gsap.min.js" defer></script>
 <script src="${root}assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="${root}assets/vendor/lenis.min.js" defer></script>
-<script src="${root}assets/js/site.js?v=463" defer></script>
-${scripts.map(s => `<script src="${root}assets/js/${s}?v=463" defer></script>`).join('\n')}
+<script src="${root}assets/js/site.js?v=465" defer></script>
+${scripts.map(s => `<script src="${root}assets/js/${s}?v=465" defer></script>`).join('\n')}
 </body>
 </html>`;
 }

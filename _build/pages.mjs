@@ -1,4 +1,4 @@
-import { esc, img, arrow, phoneIco, smsIco, fbIco, callBtn, page, PHONE, TEL, SMS, FB } from './shell.mjs';
+import { esc, img, pic, arrow, phoneIco, smsIco, fbIco, callBtn, page, PHONE, TEL, SMS, FB } from './shell.mjs';
 import { services, counties, faqs, faqCats } from './data.mjs';
 import { mapSVG } from './map.mjs';
 
@@ -280,6 +280,25 @@ function hudPlate(root, s) {
   const lbl = s.slug === 'herd-land-surveying' ? 'HEADCOUNT · REVIEW' : 'SIGNATURE · CONFIRMED';
   return `<div class="plate-hud">${img(root, ir, '')}<span class="ph-lock" style="left:${tx}%;top:${ty}%"></span><span class="ph-t mono">${lbl}</span><span class="ph-k mono">ZOOM · RANGE · MARK</span>${hudCorners}</div>`;
 }
+
+function recoveredBlock(root) {
+  const alt1 = 'A recovered whitetail buck lying in the bed of a UTV in a sunny field, with a DJI thermal drone and its controller resting on the deer.';
+  const alt2 = 'Another view of the same recovered whitetail buck in the UTV bed, the thermal drone and controller set on its side.';
+  return `<section class="recovered" id="recovered" aria-labelledby="rec-h">
+  <div class="wrap rec-in">
+    <div class="rec-head">
+      <p class="eyebrow">Recovered</p>
+      <h2 id="rec-h" class="h-l" data-split>A recent recovery.</h2>
+    </div>
+    <div class="rec-pair">
+      <figure class="rec-fig rec-lead">${pic(root, 'recovered-1', alt1)}</figure>
+      <figure class="rec-fig rec-side">${pic(root, 'recovered-2', alt2)}</figure>
+    </div>
+    <p class="rec-cap">A recent recovery: found with thermal and brought home.</p>
+  </div>
+</section>`;
+}
+
 export function servicePage(s, i) {
   const root = '../../';
   const next = services[(i + 1) % services.length];
@@ -327,6 +346,8 @@ export function servicePage(s, i) {
   <ol class="tl-track">${s.tl.map(t => `<li class="tl-step"><span class="tl-dot"></span><span class="tl-w mono">${t[0]}</span><h3 class="tl-t">${t[1]}</h3><p>${t[2]}</p></li>`).join('')}</ol>
   <div class="tl-bar" aria-hidden="true"><span data-tl-progress></span></div>
 </section>
+
+${s.slug === 'deer-recovery' ? recoveredBlock(root) : ''}
 
 <section class="cs-sec now wrap grid" aria-labelledby="now-h">
   <div class="now-h">

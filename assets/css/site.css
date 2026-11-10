@@ -526,6 +526,20 @@ a:hover>.arr,.link-arrow:hover .arr,a:hover .btn .arr,.btn:hover .arr{transform:
   .tl-bar::before{content:"";position:absolute;inset:0 var(--pad);background:var(--line)}
   .tl-bar span{position:absolute;left:var(--pad);right:var(--pad);top:0;height:100%;background:var(--cy);transform-origin:0 50%;transform:scaleX(0)}
 }
+
+/* Recovered proof (deer recovery) */
+.recovered{padding-block:clamp(64px,10vw,150px);overflow-x:clip;scroll-margin-top:calc(var(--hdr) + 16px)}
+.rec-head{display:grid;gap:12px;margin-bottom:clamp(22px,3.2vw,40px)}
+.rec-pair{display:grid;gap:10px;min-width:0}
+.rec-fig{margin:0;min-width:0;border-radius:10px;overflow:hidden;background:var(--panel)}
+.rec-fig picture,.rec-fig img{display:block;width:100%;height:auto;max-width:100%}
+.rec-cap{margin-top:16px;color:var(--mute);max-width:46ch;font-size:clamp(16px,1.3vw,19px);line-height:1.4}
+@media(min-width:900px){
+  .rec-pair{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:end}
+  .rec-lead{margin-bottom:56px}
+  .rec-cap{margin-top:22px}
+}
+
 /* checklist */
 .now-h{grid-column:1/-1;display:grid;gap:16px;align-content:start}
 .now-b{grid-column:1/-1;display:grid;gap:28px}
