@@ -116,7 +116,7 @@ export function page({ root, path, title, desc, body, cls = '', scripts = [], ct
 <link rel="apple-touch-icon" href="${root}assets/img/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fam}&display=swap">
-<link rel="stylesheet" href="${root}assets/css/site.css?v=474">
+<link rel="stylesheet" href="${root}assets/css/site.css?v=475">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Aerial Hunter","slogan":"Hunt. Search. Find.","telephone":"+1-765-592-5970","areaServed":{"@type":"State","name":"Indiana"},"sameAs":["${FB}"],"description":"Thermal drone deer recovery, lost pet recovery and herd and land surveying."}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('ah-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__ahReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4000)})(document,window)</script>
 </head>
@@ -131,8 +131,8 @@ ${footer(root, { cta })}
 <script src="${root}assets/vendor/gsap.min.js" defer></script>
 <script src="${root}assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="${root}assets/vendor/lenis.min.js" defer></script>
-<script src="${root}assets/js/site.js?v=474" defer></script>
-${scripts.map(s => `<script src="${root}assets/js/${s}?v=474" defer></script>`).join('\n')}
+<script src="${root}assets/js/site.js?v=475" defer></script>
+${scripts.map(s => `<script src="${root}assets/js/${s}?v=475" defer></script>`).join('\n')}
 </body>
 </html>`;
 }
