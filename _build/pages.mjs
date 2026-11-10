@@ -38,7 +38,7 @@ function compare(root, { night, ir, tx, ty, eb, title, body }) {
     <div class="cmp-stage" data-tx="${tx}" data-ty="${ty}">
       ${img(root, night, 'The same field at night, as your eyes see it: nearly black', 'cmp-a')}
       <div class="cmp-b">${img(root, ir, 'The same field through the thermal camera: a warm animal glows white', '')}</div>
-      <span class="cmp-edge" aria-hidden="true"><i></i></span>
+      <span class="cmp-edge" aria-hidden="true"></span>
       <span class="cmp-tag cmp-tag-a mono" aria-hidden="true">Naked eye</span>
       <span class="cmp-tag cmp-tag-b mono" aria-hidden="true">Thermal · white hot</span>
       <span class="cmp-ret" aria-hidden="true">${hudCorners}</span>
@@ -128,6 +128,16 @@ ${compare(root, { night: 'night-deer', ir: 'thermal-deer', tx: 0.497, ty: 0.503,
   ${stackCards(root)}
 </section>
 
+<aside class="rate-rail wrap" aria-label="Rates">
+  <p class="eyebrow">Rates</p>
+  <ul class="rate-rail-list">
+    <li><span class="rr-n">Deer Recovery</span><b>$250</b><i>up to 2 hours</i></li>
+    <li><span class="rr-n">Lost Pet Recovery</span><b>$150</b><i>per hour</i></li>
+    <li><span class="rr-n">Herd &amp; Land Surveying</span><b class="rr-call">Call for more information</b></li>
+  </ul>
+  <a class="link-arrow" href="services/#pricing">See the full rates ${arrow}</a>
+</aside>
+
 ${facts()}
 
 <section class="gear-t wrap grid" aria-labelledby="gear-h">
@@ -200,12 +210,52 @@ export function servicesIndex() {
 
 ${process(root)}
 
-<section class="price wrap grid">
-  <h2 class="h-l price-h" data-split>Affordable pricing.</h2>
-  <div class="price-b" data-fade>
-    <p class="lead">The price depends on the job: the distance, the size of the area and the time of day or night.</p>
-    <p class="mute">Call, describe what you need, and get a quote.</p>
-    ${callBtn('', 'Call for a quote')}
+<section class="price wrap" id="pricing" aria-labelledby="price-h">
+  <div class="price-head">
+    <p class="eyebrow">Rates</p>
+    <h2 id="price-h" class="h-l" data-split>What a search costs.</h2>
+    <p class="lead" data-fade>Published rates, in plain English. Travel is measured from Rockville.</p>
+  </div>
+  <ol class="rate-sheet">
+    <li class="rate" data-reveal>
+      <div class="rate-top">
+        <div>
+          <p class="rate-n mono">01 / 03</p>
+          <h3 class="rate-h"><a href="deer-recovery/">Deer Recovery</a></h3>
+        </div>
+        <p class="rate-fig"><b>$250</b><span>up to 2 hours</span></p>
+      </div>
+      <ul class="rate-lines">
+        <li><span>Each additional hour</span><b>$100 / hr</b></li>
+        <li><span>Finder’s fee, dead or alive</span><b>$50</b></li>
+        <li><span>Travel after 50 miles from Rockville</span><b>$1 / mile</b></li>
+      </ul>
+    </li>
+    <li class="rate" data-reveal>
+      <div class="rate-top">
+        <div>
+          <p class="rate-n mono">02 / 03</p>
+          <h3 class="rate-h"><a href="lost-pet-recovery/">Lost Pet Recovery</a></h3>
+        </div>
+        <p class="rate-fig"><b>$150</b><span>per hour</span></p>
+      </div>
+      <ul class="rate-lines">
+        <li><span>Travel after 50 miles from Rockville</span><b>$1 / mile</b></li>
+      </ul>
+    </li>
+    <li class="rate" data-reveal>
+      <div class="rate-top">
+        <div>
+          <p class="rate-n mono">03 / 03</p>
+          <h3 class="rate-h"><a href="herd-land-surveying/">Herd &amp; Land Surveying</a></h3>
+        </div>
+        <p class="rate-fig is-call"><b>Call for more information</b></p>
+      </div>
+    </li>
+  </ol>
+  <div class="rate-foot" data-fade>
+    <p class="mute">Call or text to check availability. We’ll confirm the rate before we drive out.</p>
+    ${callBtn('', 'Call ' + PHONE)}
   </div>
 </section>`;
   return page({ root, path: 'services/', title: 'Services', desc: 'Thermal drone deer recovery, lost pet recovery and herd & land surveying around Parke County, Indiana.', body, cls: 'p-services' });
@@ -344,7 +394,7 @@ export function howItWorks() {
 
 <section class="pal wrap" data-palette aria-labelledby="pal-h">
   <div class="pal-head">
-    <div><p class="eyebrow">Try it</p><h2 id="pal-h" class="h-l" data-split>One scene, four ways to see it.</h2></div>
+    <div><p class="eyebrow">Try it</p><h2 id="pal-h" class="h-l" data-split>Spot the Difference</h2></div>
     <div class="chips pal-chips" role="group" aria-label="Thermal palette">
       <button class="chip on" type="button" data-pal="white" aria-pressed="true">White hot</button>
       <button class="chip" type="button" data-pal="black" aria-pressed="false">Black hot</button>
@@ -460,7 +510,7 @@ export function about() {
 
 <section class="principles wrap" aria-labelledby="pr-h">
   <div class="sec-head"><h2 id="pr-h" class="h-l" data-split>How we work</h2></div>
-  <ol class="pr">${[['Straight answers', 'If conditions or cover make a find unlikely, you’ll hear it on the phone, before anyone drives out.'], ['Landowners first', 'We fly and recover only where we have permission, and we help you sort it out with neighbors.'], ['Quick to respond', 'Lost animals don’t wait. Call as soon as you know, and we’ll tell you how quickly we can get there.'], ['Fair prices', 'Affordable pricing. Call for a quote on your search.']].map((p, k) => `<li data-reveal><span class="mono">${pad(k + 1)}</span><h3>${p[0]}</h3><p>${p[1]}</p></li>`).join('')}</ol>
+  <ol class="pr">${[['Straight answers', 'If conditions or cover make a find unlikely, you’ll hear it on the phone, before anyone drives out.'], ['Landowners first', 'We fly and recover only where we have permission, and we help you sort it out with neighbors.'], ['Quick to respond', 'Lost animals don’t wait. Call as soon as you know, and we’ll tell you how quickly we can get there.'], ['Fair prices', 'Rates are listed on the Services page. We’ll confirm the cost before we drive out.']].map((p, k) => `<li data-reveal><span class="mono">${pad(k + 1)}</span><h3>${p[0]}</h3><p>${p[1]}</p></li>`).join('')}</ol>
 </section>
 
 <section class="fbband wrap" aria-labelledby="fb-h">

@@ -159,6 +159,7 @@
     var stg = $('.cmp-stage', sec), tx = +stg.dataset.tx, ty = +stg.dataset.ty;
     var place = function () { var p = coverPt(stg, 1280, 720, tx, ty); stg.style.setProperty('--tx', p.x + 'px'); stg.style.setProperty('--ty', p.y + 'px'); return p; };
     var p0 = place(); W.addEventListener('resize', place);
+    stg.style.setProperty('--p', '100%');
     if (!motion) { stg.style.setProperty('--p', '50%'); sec.classList.add('found'); return; }
     var o = { p: 100 };
     gsap.to(o, { p: 0, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', pin: $('.cmp-pin', sec), scrub: 0.5, anticipatePin: 1,

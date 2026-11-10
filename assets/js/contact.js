@@ -53,8 +53,14 @@
   var state = { service: null, a: { pref: 'Call me' }, photo: null };
   var pre = params.get('service');
   SERVICES.forEach(function (s) { if (s.slug === pre || s.id === pre) state.service = s.id; });
+  function flowFor() {
+    var f = [{ id: 'service', label: 'What happened' }];
+    if (state.service !== 'deer') f.push({ id: 'details', label: 'Details' });
+    f.push({ id: 'you', label: 'Your contact' }, { id: 'review', label: 'Review & send' });
+    return f;
+  }
+  var FLOW = flowFor();
   var step = state.service ? 1 : 0;
-  var FLOW = [{ id: 'service', label: 'What happened' }, { id: 'details', label: 'Details' }, { id: 'you', label: 'Your contact' }, { id: 'review', label: 'Review & send' }];
   function svc() { return SERVICES.filter(function (x) { return x.id === state.service; })[0]; }
   function set(id) { return id === 'details' ? Q[state.service].f : id === 'you' ? YOU.f : []; }
   function nowLocal() { var n = new Date(); n.setMinutes(n.getMinutes() - n.getTimezoneOffset()); return n.toISOString().slice(0, 16); }
@@ -93,6 +99,8 @@
   }
 
   function render(dir) {
+    FLOW = flowFor();
+    if (step > FLOW.length - 1) step = FLOW.length - 1;
     var cur = FLOW[step], html = '';
     var head = function (k, h, sub) { return '<p class="eyebrow ct-k">Step ' + (step + 1) + ' of ' + FLOW.length + ' · ' + k + '</p><h2 class="ct-q">' + h + '</h2>' + (sub ? '<p class="ct-sub">' + sub + '</p>' : ''); };
     if (cur.id === 'service') {
@@ -114,7 +122,7 @@
       prog.style.transform = 'scaleX(' + ((step + 1) / (FLOW.length + 1)) + ')';
       stepsEl.innerHTML = FLOW.map(function (s, i) { return '<li class="' + (i === step ? 'on' : i < step ? 'done' : '') + '"><span>0' + (i + 1) + ' ' + s.label + '</span><span>' + (i < step ? 'Done' : i === step ? '●' : '') + '</span></li>'; }).join('');
       stage.querySelectorAll('[data-edit]').forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.edit); }); });
-      stage.querySelectorAll('input[name=service]').forEach(function (r) { r.addEventListener('change', function () { var old = state.service; state.service = r.value; if (old !== r.value) setTimeout(function () { go(1); }, 260); }); });
+      stage.querySelectorAll('input[name=service]').forEach(function (r) { r.addEventListener('change', function () { var old = state.service; state.service = r.value; FLOW = flowFor(); if (old !== r.value) setTimeout(function () { go(1); }, 260); }); });
       stage.querySelectorAll('[data-now]').forEach(function (b) { b.addEventListener('click', function () { var i = stage.querySelector('#f-' + b.dataset.now); i.value = nowLocal(); i.closest('.fld').classList.remove('err'); }); });
       var ph = stage.querySelector('[data-photo]');
       if (ph) ph.addEventListener('change', function () { var f = ph.files && ph.files[0]; if (!f) return; if (state.photo) URL.revokeObjectURL(state.photo.url); state.photo = { name: f.name, url: URL.createObjectURL(f) }; stage.querySelector('[data-pd-th]').innerHTML = '<img src="' + state.photo.url + '" alt="Your pet">'; stage.querySelector('[data-pd-n]').textContent = f.name; });
@@ -163,11 +171,7 @@
   function message() {
     var a = state.a, L = ['AERIAL HUNTER REQUEST: ' + svc().t.toUpperCase()];
     var where = function () { return [a.county ? a.county + (a.county === 'Somewhere else' ? '' : ' Co.') : '', a.where || a.seenWhere || ''].filter(Boolean).join(', '); };
-    if (state.service === 'deer') {
-      L.push('Shot: ' + fmtWhen(a.shot)); L.push('Where: ' + where());
-      if (a.hit) L.push('Hit: ' + a.hit);
-      L.push('Last heading: ' + a.dir); L.push('Landowner permission: ' + a.perm);
-    } else if (state.service === 'pet') {
+    if (state.service === 'pet') {
       L.push('Animal: ' + a.animal + (a.pname ? ' named ' + a.pname : '')); L.push('Looks like: ' + a.pdesc);
       L.push('Last seen: ' + fmtWhen(a.seenWhen) + ', ' + where());
       if (a.temper) L.push('With strangers: ' + a.temper);
@@ -175,7 +179,7 @@
     } else if (state.service === 'survey') {
       L.push('Job: ' + a.kind.join(', ')); L.push('Acres: ' + a.acres); L.push('Wants: ' + a.deliver.join(', '));
       L.push('Where: ' + where()); if (a.timing) L.push('Timing: ' + a.timing);
-    } else L.push(a.msg);
+    } else if (state.service === 'other') L.push(a.msg);
     L.push(''); L.push('From: ' + a.name + ', ' + a.phone + (a.pref ? ' (' + a.pref.toLowerCase() + ')' : ''));
     if (a.notes) L.push('Notes: ' + a.notes);
     return L.join('\n');
@@ -196,7 +200,7 @@
     stepsEl.querySelectorAll('li').forEach(function (li) { li.className = 'done'; li.lastChild.textContent = 'Done'; });
     stage.querySelector('.ct-q').focus({ preventScroll: true });
     stage.querySelector('[data-copy]').addEventListener('click', function (e) { var b = e.currentTarget, ok = function () { b.querySelector('span').textContent = 'Copied'; setTimeout(function () { b.querySelector('span').textContent = 'Copy details'; }, 2000); }; if (navigator.clipboard) navigator.clipboard.writeText(body).then(ok, ok); else ok(); });
-    stage.querySelector('[data-restart]').addEventListener('click', function () { state = { service: null, a: { pref: 'Call me' }, photo: null }; root.querySelector('[data-nav]').hidden = false; step = 0; render(-1); });
+    stage.querySelector('[data-restart]').addEventListener('click', function () { state = { service: null, a: { pref: 'Call me' }, photo: null }; FLOW = flowFor(); root.querySelector('[data-nav]').hidden = false; step = 0; render(-1); });
     scrollToForm();
     if (G && !RM) G.fromTo(stage.querySelectorAll('.done > *'), { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out', stagger: 0.06 });
   }

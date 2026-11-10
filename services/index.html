@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="../assets/img/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/site.css?v=463">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Aerial Hunter","slogan":"Hunt. Search. Find.","telephone":"+1-765-592-5970","areaServed":["Parke County, IN","Vermillion County, IN","Fountain County, IN","Montgomery County, IN","Putnam County, IN","Clay County, IN","Vigo County, IN"],"sameAs":["https://www.facebook.com/people/Aerial-Hunter/61583336984487/"],"description":"Thermal drone deer recovery, lost pet recovery and herd and land surveying."}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('ah-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__ahReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4000)})(document,window)</script>
 </head>
@@ -95,12 +95,52 @@
   </div>
 </section>
 
-<section class="price wrap grid">
-  <h2 class="h-l price-h" data-split>Affordable pricing.</h2>
-  <div class="price-b" data-fade>
-    <p class="lead">The price depends on the job: the distance, the size of the area and the time of day or night.</p>
-    <p class="mute">Call, describe what you need, and get a quote.</p>
-    <a class="btn btn-call " href="tel:+17655925970" data-magnetic data-cursor="Call"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6.3 1.2 4-2 1.6a12 12 0 006.2 6.2l1.6-2 4 1.2.3 2.6c0 1-.9 2-2 2C10.8 19.4 4.6 13.2 4.6 5.5c0-1.1 1-2 2-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Call for a quote</span></a>
+<section class="price wrap" id="pricing" aria-labelledby="price-h">
+  <div class="price-head">
+    <p class="eyebrow">Rates</p>
+    <h2 id="price-h" class="h-l" data-split>What a search costs.</h2>
+    <p class="lead" data-fade>Published rates, in plain English. Travel is measured from Rockville.</p>
+  </div>
+  <ol class="rate-sheet">
+    <li class="rate" data-reveal>
+      <div class="rate-top">
+        <div>
+          <p class="rate-n mono">01 / 03</p>
+          <h3 class="rate-h"><a href="deer-recovery/">Deer Recovery</a></h3>
+        </div>
+        <p class="rate-fig"><b>$250</b><span>up to 2 hours</span></p>
+      </div>
+      <ul class="rate-lines">
+        <li><span>Each additional hour</span><b>$100 / hr</b></li>
+        <li><span>Finder’s fee, dead or alive</span><b>$50</b></li>
+        <li><span>Travel after 50 miles from Rockville</span><b>$1 / mile</b></li>
+      </ul>
+    </li>
+    <li class="rate" data-reveal>
+      <div class="rate-top">
+        <div>
+          <p class="rate-n mono">02 / 03</p>
+          <h3 class="rate-h"><a href="lost-pet-recovery/">Lost Pet Recovery</a></h3>
+        </div>
+        <p class="rate-fig"><b>$150</b><span>per hour</span></p>
+      </div>
+      <ul class="rate-lines">
+        <li><span>Travel after 50 miles from Rockville</span><b>$1 / mile</b></li>
+      </ul>
+    </li>
+    <li class="rate" data-reveal>
+      <div class="rate-top">
+        <div>
+          <p class="rate-n mono">03 / 03</p>
+          <h3 class="rate-h"><a href="herd-land-surveying/">Herd &amp; Land Surveying</a></h3>
+        </div>
+        <p class="rate-fig is-call"><b>Call for more information</b></p>
+      </div>
+    </li>
+  </ol>
+  <div class="rate-foot" data-fade>
+    <p class="mute">Call or text to check availability. We’ll confirm the rate before we drive out.</p>
+    <a class="btn btn-call " href="tel:+17655925970" data-magnetic data-cursor="Call"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5l2.6.3 1.2 4-2 1.6a12 12 0 006.2 6.2l1.6-2 4 1.2.3 2.6c0 1-.9 2-2 2C10.8 19.4 4.6 13.2 4.6 5.5c0-1.1 1-2 2-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Call 765-592-5970</span></a>
   </div>
 </section>
 </main>
@@ -112,7 +152,7 @@
     <div class="cta-row">
       <a class="cta-phone" href="tel:+17655925970" data-cursor="Call"><span class="mono">Tap to call</span><span class="cta-num">765<i>-</i>592<i>-</i>5970</span></a>
       <div class="cta-side">
-        <p>Deer recovery, lost pets, herd counts and land checks across Parke County and the surrounding counties. Affordable pricing; call for a quote.</p>
+        <p>Deer recovery, lost pets, herd counts and land checks across Parke County and the surrounding counties. Rates are on the Services page; call or text to get started.</p>
         <div class="cta-btns"><a class="btn btn-ghost" href="sms:+17655925970"><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Text instead</span></a><a class="btn btn-ghost" href="../contact/"><span>Send details <svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></a></div>
       </div>
     </div>
@@ -158,7 +198,7 @@
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="../assets/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/site.js?v=463" defer></script>
 
 </body>
 </html>

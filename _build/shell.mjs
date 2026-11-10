@@ -45,7 +45,7 @@ export function footer(root, { cta = true } = {}) {
     <div class="cta-row">
       <a class="cta-phone" href="${TEL}" data-cursor="Call"><span class="mono">Tap to call</span><span class="cta-num">${PHONE.replace(/-/g, '<i>-</i>')}</span></a>
       <div class="cta-side">
-        <p>Deer recovery, lost pets, herd counts and land checks across Parke County and the surrounding counties. Affordable pricing; call for a quote.</p>
+        <p>Deer recovery, lost pets, herd counts and land checks across Parke County and the surrounding counties. Rates are on the Services page; call or text to get started.</p>
         <div class="cta-btns"><a class="btn btn-ghost" href="${SMS}"><span>${smsIco}Text instead</span></a><a class="btn btn-ghost" href="${root}contact/"><span>Send details ${arrow}</span></a></div>
       </div>
     </div>
@@ -108,7 +108,7 @@ export function page({ root, path, title, desc, body, cls = '', scripts = [], ct
 <link rel="apple-touch-icon" href="${root}assets/img/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fam}&display=swap">
-<link rel="stylesheet" href="${root}assets/css/site.css">
+<link rel="stylesheet" href="${root}assets/css/site.css?v=463">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Aerial Hunter","slogan":"Hunt. Search. Find.","telephone":"+1-765-592-5970","areaServed":["Parke County, IN","Vermillion County, IN","Fountain County, IN","Montgomery County, IN","Putnam County, IN","Clay County, IN","Vigo County, IN"],"sameAs":["${FB}"],"description":"Thermal drone deer recovery, lost pet recovery and herd and land surveying."}</script>
 <script>(function(d,w){var h=d.documentElement;h.className=h.className.replace('no-js','js');var rm=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){h.classList.add('motion');try{if(sessionStorage.getItem('ah-pt')==='1')h.classList.add('pt-in')}catch(e){}}else{h.classList.add('no-motion')}setTimeout(function(){if(!w.__ahReady){h.classList.remove('motion','pt-in');h.classList.add('no-motion')}},4000)})(document,window)</script>
 </head>
@@ -123,8 +123,8 @@ ${footer(root, { cta })}
 <script src="${root}assets/vendor/gsap.min.js" defer></script>
 <script src="${root}assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="${root}assets/vendor/lenis.min.js" defer></script>
-<script src="${root}assets/js/site.js" defer></script>
-${scripts.map(s => `<script src="${root}assets/js/${s}" defer></script>`).join('\n')}
+<script src="${root}assets/js/site.js?v=463" defer></script>
+${scripts.map(s => `<script src="${root}assets/js/${s}?v=463" defer></script>`).join('\n')}
 </body>
 </html>`;
 }

@@ -44,7 +44,7 @@ export const services = [
     kicker: 'Thermal drone deer recovery',
     title: 'Find the deer the blood trail lost.',
     lede: 'When a deer runs after the shot and the sign runs out, a thermal drone can sweep timber, standing corn and creek bottoms from above, where a blood trail can’t lead you.',
-    meta: [['For', 'Lost and injured deer'], ['When', 'Night and low light'], ['Ground', 'Fields, woods, hills, creek bottoms'], ['Pricing', 'Affordable. Call for a quote']],
+    meta: [['For', 'Lost and injured deer'], ['When', 'Night and low light'], ['Ground', 'Fields, woods, hills, creek bottoms'], ['Pricing', '$250 up to 2 hours']],
     focus: 'Every hunter has lost one. The sign dries up, the light goes, the cover gets thick. On a thermal camera a deer that is still warm stands out against cooler ground, even under leafless timber after dark. We fly the area methodically, confirm what we find, and guide you to it. You make the recovery. We do the looking.',
     zoom: 'Found.',
     chapters: [
@@ -72,7 +72,7 @@ export const services = [
     kicker: 'Thermal search for lost pets',
     title: 'Bring them home, even after dark.',
     lede: 'A frightened dog in a fencerow, or a cat out in a hayfield, is hard to spot from the road. From above, a warm body in cool grass is a lot easier to pick out.',
-    meta: [['For', 'Dogs, cats, horses, livestock'], ['When', 'Night and early morning'], ['Ground', 'Fields, woods, creek banks'], ['Pricing', 'Affordable. Call for a quote']],
+    meta: [['For', 'Dogs, cats, horses, livestock'], ['When', 'Night and early morning'], ['Ground', 'Fields, woods, creek banks'], ['Pricing', '$150 per hour']],
     focus: 'Lost pets don’t behave like they do at home. Scared dogs go quiet and hide; cats tuck into cover and wait. A thermal drone can check fields, fencerows and woods edges quickly and quietly, without anyone crashing through the brush. When we see a warm shape, we confirm it on the zoom camera, then help you make a calm approach.',
     zoom: 'Home.',
     chapters: [
@@ -100,7 +100,7 @@ export const services = [
     kicker: 'Herd counts and aerial land checks',
     title: 'Count the herd. See the whole farm.',
     lede: 'Count cattle across back pasture, look for strays, check fence lines after a storm, or get a clear aerial view of your ground, without driving every acre.',
-    meta: [['For', 'Farms, landowners, hunting ground'], ['When', 'Day or night'], ['Ground', 'Pasture, timber, ponds, fence lines'], ['Pricing', 'Affordable. Call for a quote']],
+    meta: [['For', 'Farms, landowners, hunting ground'], ['When', 'Day or night'], ['Ground', 'Pasture, timber, ponds, fence lines'], ['Pricing', 'Call for more information']],
     focus: 'Some questions are easier to answer from 300 feet up. How many head are in the back eighty? Where did that fence go down? Did the creek take part of the bank? We fly a set pattern over your ground, with regular and thermal cameras, and hand you the answers along with the photos and video.',
     zoom: 'Count.',
     chapters: [
@@ -136,7 +136,7 @@ export const faqs = [
   ['drone', 'What does “Part 107 certified” mean?', 'Part 107 is the FAA’s rulebook for commercial drone flights. A certified remote pilot has passed the FAA knowledge test and keeps current with recurrent training. Flying at night also requires that training plus anti-collision lighting on the drone.'],
   ['drone', 'What weather can you fly in?', 'Not in rain, heavy fog or strong wind. Cool, still, dry nights give the best thermal picture. If the weather is against a good search, we’ll tell you straight.'],
   ['drone', 'What drone do you use?', 'A DJI Matrice 4T, an enterprise drone built for search work. It carries a 640 × 512 thermal camera, zoom cameras, a laser rangefinder and a near-infrared auxiliary light. See the gear page for more.'],
-  ['price', 'How much does a search cost?', 'Pricing is affordable and depends on the job: the distance, the size of the area and the time of day or night. Call 765-592-5970 for a quote.'],
+  ['price', 'How much does a search cost?', 'Deer Recovery is $250 for up to 2 hours, plus $100 per hour for each additional hour, a $50 finder’s fee (dead or alive), and a $1 per mile travel fee after 50 miles from Rockville. Lost Pet Recovery is $150 per hour, with the same $1 per mile travel fee after 50 miles from Rockville. Herd & Land Surveying depends on the job; call for more information.'],
   ['price', 'What areas do you cover?', 'Parke County and the surrounding counties: Vermillion, Fountain, Montgomery, Putnam, Clay and Vigo. Further out? Call and ask.']
 ];
 export const faqCats = [['all', 'All'], ['deer', 'Deer'], ['pet', 'Pets'], ['survey', 'Surveying'], ['drone', 'Drone & rules'], ['price', 'Pricing & area']];
