@@ -560,16 +560,18 @@ export function gallery(root = '../') {
     { id: 'gallery-2', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, a boy holds the antlers of a recovered buck while a man kneels beside them with a drone and its controller.' },
     { id: 'gallery-6', w: 768, h: 1024, sw: 768, fw: 768, alt: 'In the woods during the day, an older man kneels holding a recovered buck’s antlers, with a DJI controller screen in the foreground.' },
     { id: 'gallery-5', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, a man in a grey hoodie kneels holding a DJI drone and its controller next to a young woman in camo holding the antlers of a recovered buck.' },
+    { id: 'gallery-7', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, two men kneel with a recovered buck on a leaf-covered trail. One holds the antlers; the other holds a DJI drone and its controller.' },
     { id: 'gallery-3', w: 1200, h: 1600, sw: 800, fw: 1200, alt: 'A recovered buck in the bed of a UTV in a sunny field, with a DJI thermal drone and its controller resting on the deer.' },
     { id: 'gallery-4', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'Another view of the same recovered buck in the UTV bed, the thermal drone and controller set on its side.' }
   ];
   const card = (ph, i) => {
     const base = `${root}assets/img/${ph.id}`;
+    const sz = i >= 4 ? '(max-width: 900px) 100vw, 31vw' : '(max-width: 900px) 100vw, 46vw';
     return `<figure class="gal-item" data-img-reveal>
     <button type="button" class="gal-btn" data-cursor="View" aria-label="${esc(ph.alt)}" data-full-jpg="${base}.jpg" data-full-webp="${base}.webp" data-alt="${esc(ph.alt)}">
       <picture>
-        <source type="image/webp" srcset="${base}-sm.webp ${ph.sw}w, ${base}.webp ${ph.fw}w" sizes="(max-width: 900px) 100vw, 46vw">
-        <source type="image/jpeg" srcset="${base}-sm.jpg ${ph.sw}w, ${base}.jpg ${ph.fw}w" sizes="(max-width: 900px) 100vw, 46vw">
+        <source type="image/webp" srcset="${base}-sm.webp ${ph.sw}w, ${base}.webp ${ph.fw}w" sizes="${sz}">
+        <source type="image/jpeg" srcset="${base}-sm.jpg ${ph.sw}w, ${base}.jpg ${ph.fw}w" sizes="${sz}">
         <img src="${base}.jpg" alt="" width="${ph.w}" height="${ph.h}" ${i === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async">
       </picture>
     </button>

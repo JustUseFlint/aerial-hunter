@@ -819,9 +819,11 @@ input[type=datetime-local].inp,input[type=date].inp{color-scheme:dark}
 .gal-btn img{transform-origin:50% 50%;transition:transform 1.2s var(--ease)}
 @media(hover:hover) and (pointer:fine){.gal-btn:hover img{transform:scale(1.035)}}
 @media(min-width:900px){
-  .gal-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 22px;align-items:start}
+  .gal-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:18px 22px;align-items:start}
+  .gal-item:nth-child(-n+4){grid-column:span 3}
+  .gal-item:nth-child(n+5){grid-column:span 2;margin-top:0}
   .gal-item:nth-child(odd){margin-top:0}
-  .gal-item:nth-child(even){margin-top:clamp(28px,4vw,64px)}
+  .gal-item:nth-child(-n+4):nth-child(even){margin-top:clamp(28px,4vw,64px)}
 }
 .gal-cta{padding-block:clamp(56px,9vw,140px);display:grid;gap:18px;justify-items:start;border-top:1px solid var(--line)}
 .gal-cta h2{max-width:12ch}
