@@ -561,7 +561,8 @@ export function gallery(root = '../') {
     { id: 'gallery-6', w: 768, h: 1024, sw: 768, fw: 768, alt: 'In the woods during the day, an older man kneels holding a recovered buck’s antlers, with a DJI controller screen in the foreground.' },
     { id: 'gallery-5', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, a man in a grey hoodie kneels holding a DJI drone and its controller next to a young woman in camo holding the antlers of a recovered buck.' },
     { id: 'gallery-3', w: 1200, h: 1600, sw: 800, fw: 1200, alt: 'A recovered buck in the bed of a UTV in a sunny field, with a DJI thermal drone and its controller resting on the deer.' },
-    { id: 'gallery-7', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, two men kneel with a recovered buck on a leaf-covered trail. One holds the antlers; the other holds a DJI drone and its controller.' }
+    { id: 'gallery-7', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, two men kneel with a recovered buck on a leaf-covered trail. One holds the antlers; the other holds a DJI drone and its controller.' },
+    { id: 'gallery-8', w: 1600, h: 2133, sw: 800, fw: 1600, alt: 'At night, two men stand behind a UTV with a recovered buck in the bed. One in an orange beanie holds the antlers; the other holds a DJI drone and its controller.' }
   ];
   const card = (ph, i) => {
     const base = `${root}assets/img/${ph.id}`;
